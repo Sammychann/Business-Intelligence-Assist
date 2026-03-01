@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI-powered Business Intelligence platform — get instant company analysis, SWOT reports, risk assessments, and strategic insights." />
+  <title>Business Intelligence Assist — AI Company Analyzer</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%232563eb'/><text x='50' y='68' text-anchor='middle' fill='white' font-size='55' font-weight='bold' font-family='Inter,sans-serif'>BI</text></svg>">
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="header">
+      <a href="/" class="logo" id="logo-link">
+        <div class="logo-icon">BI</div>
+        <span class="logo-text">BI Assist</span>
+      </a>
+      <span class="logo-badge">AI Powered</span>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="hero-section">
+      <div class="hero-badge">Intelligent Analysis Engine</div>
+      <h1 class="hero-title">
+        Know Any Company<br /><span class="gradient-text">In Seconds</span>
+      </h1>
+      <p class="hero-subtitle">
+        Enter a company name and get an AI-generated intelligence report with financial snapshots, SWOT analysis, risk
+        assessment, and strategic insights.
+      </p>
+
+      <!-- Search -->
+      <form class="search-container" id="search-form">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="company-input"
+            placeholder="Enter company name — e.g. Tesla, Stripe, Airbnb..." autocomplete="off" required />
+          <button type="submit" class="search-btn" id="analyze-btn">
+            <span id="btn-text">Analyze</span>
+            <div class="spinner" id="btn-spinner" style="display:none"></div>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Error -->
+    <div class="error-banner" id="error-banner"></div>
+
+    <!-- Loading -->
+    <div class="loading-overlay" id="loading-overlay">
+      <div class="loading-orb"></div>
+      <div class="loading-text">Analyzing company intelligence...</div>
+      <div class="loading-steps" id="loading-steps"></div>
+    </div>
+
+    <!-- Report Dashboard -->
+    <div class="report-dashboard" id="report-dashboard">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      Business Intelligence Assist · Powered by AI · Data sourced from public information
+    </footer>
+
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+
+</html>
