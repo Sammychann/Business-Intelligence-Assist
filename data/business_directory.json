@@ -1,0 +1,1147 @@
+{
+    "meta": {
+        "version": "1.0",
+        "source": "Curated from Bloomberg, Crunchbase, and public filings",
+        "last_updated": "2026-03-04",
+        "total_companies": 25
+    },
+    "companies": [
+        {
+            "name": "Google",
+            "also_known_as": [
+                "Alphabet",
+                "Google LLC"
+            ],
+            "industry": "Technology / Internet Services",
+            "sector": "Communication Services",
+            "founded": 1998,
+            "headquarters": "Mountain View, California, USA",
+            "ceo": "Sundar Pichai",
+            "employees": 182502,
+            "public": true,
+            "ticker": "GOOGL",
+            "market_cap_usd": "2.1T",
+            "revenue_usd": "$307B (2023)",
+            "description": "Multinational technology conglomerate specializing in internet services, cloud computing, AI, and online advertising. Parent company Alphabet operates Google Search, YouTube, Android, Google Cloud, and Waymo.",
+            "key_products": [
+                "Google Search",
+                "YouTube",
+                "Google Cloud Platform",
+                "Android",
+                "Google Ads",
+                "Gmail",
+                "Google Maps",
+                "Gemini AI"
+            ],
+            "recent_developments": [
+                "Launched Gemini multimodal AI model family to compete with OpenAI",
+                "Invested $2B in Anthropic for AI partnership",
+                "Restructured to focus AI-first strategy across all products",
+                "YouTube Shorts surpassed 70B daily views",
+                "Google Cloud reached $33B annual revenue run rate"
+            ],
+            "culture_values": [
+                "Innovation",
+                "User-first design",
+                "Openness",
+                "Data-driven decision making",
+                "10x thinking"
+            ],
+            "challenges": [
+                "Antitrust lawsuits from DOJ threatening core ad business",
+                "AI competition from OpenAI/Microsoft eroding search dominance",
+                "Cloud market share trails AWS and Azure",
+                "Ad revenue concentration risk (80%+ of total revenue)"
+            ],
+            "interview_context": "Known for rigorous technical interviews. Values creative problem-solving and system design thinking. Engineering culture emphasizes scalability and data-driven approaches."
+        },
+        {
+            "name": "Tesla",
+            "also_known_as": [
+                "Tesla Inc",
+                "Tesla Motors"
+            ],
+            "industry": "Automotive / Clean Energy",
+            "sector": "Consumer Discretionary",
+            "founded": 2003,
+            "headquarters": "Austin, Texas, USA",
+            "ceo": "Elon Musk",
+            "employees": 140473,
+            "public": true,
+            "ticker": "TSLA",
+            "market_cap_usd": "$800B",
+            "revenue_usd": "$96.8B (2023)",
+            "description": "Electric vehicle manufacturer and clean energy company. Designs, manufactures, and sells electric cars, battery energy storage, solar panels, and related products. Also developing autonomous driving technology and humanoid robots.",
+            "key_products": [
+                "Model S",
+                "Model 3",
+                "Model X",
+                "Model Y",
+                "Cybertruck",
+                "Powerwall",
+                "Megapack",
+                "Solar Roof",
+                "Full Self-Driving (FSD)"
+            ],
+            "recent_developments": [
+                "Cybertruck production ramped to 2,500 units/week",
+                "FSD v12 uses end-to-end neural networks, removing hand-coded rules",
+                "Optimus humanoid robot prototype performing factory tasks",
+                "Energy storage business grew 125% YoY",
+                "Launched refreshed Model Y 'Juniper' globally"
+            ],
+            "culture_values": [
+                "Mission-driven (accelerate sustainable energy)",
+                "First-principles thinking",
+                "Extreme urgency",
+                "Vertical integration",
+                "Anti-bureaucracy"
+            ],
+            "challenges": [
+                "CEO distraction with multiple companies (X, SpaceX, xAI)",
+                "Increasing EV competition from BYD, Rivian, and legacy automakers",
+                "Regulatory scrutiny on Full Self-Driving safety claims",
+                "Brand polarization affecting sales in key markets"
+            ],
+            "interview_context": "Known for intense, mission-driven culture. Interviews focus on problem-solving under pressure, first-principles thinking, and capacity to work in fast-paced environments."
+        },
+        {
+            "name": "Microsoft",
+            "also_known_as": [
+                "Microsoft Corporation",
+                "MSFT"
+            ],
+            "industry": "Technology / Software",
+            "sector": "Information Technology",
+            "founded": 1975,
+            "headquarters": "Redmond, Washington, USA",
+            "ceo": "Satya Nadella",
+            "employees": 228000,
+            "public": true,
+            "ticker": "MSFT",
+            "market_cap_usd": "$3.1T",
+            "revenue_usd": "$227B (FY2024)",
+            "description": "Global technology corporation producing software, hardware, and cloud services. Core products include Windows, Office 365, Azure cloud platform, LinkedIn, and gaming (Xbox, Activision Blizzard). Major investor in OpenAI.",
+            "key_products": [
+                "Azure",
+                "Microsoft 365",
+                "Windows",
+                "Teams",
+                "LinkedIn",
+                "GitHub",
+                "Copilot AI",
+                "Xbox",
+                "Dynamics 365"
+            ],
+            "recent_developments": [
+                "Copilot AI integrated across entire product suite",
+                "$13B investment in OpenAI making them largest partner",
+                "Activision Blizzard acquisition completed for $69B",
+                "Azure AI services growing 6x YoY",
+                "GitHub Copilot reached 1.8M paid subscribers"
+            ],
+            "culture_values": [
+                "Growth mindset",
+                "Diversity and inclusion",
+                "Customer obsession",
+                "One Microsoft",
+                "Learn-it-all vs know-it-all"
+            ],
+            "challenges": [
+                "EU regulatory pressure on AI and cloud bundling",
+                "Dependence on OpenAI partnership creates strategic risk",
+                "Gaming division integration challenges post-Activision deal",
+                "China market restrictions impacting revenue growth"
+            ],
+            "interview_context": "Emphasizes growth mindset and collaboration. Technical interviews focus on coding, system design, and behavioral questions around learning and adaptability."
+        },
+        {
+            "name": "Amazon",
+            "also_known_as": [
+                "Amazon.com",
+                "AMZN"
+            ],
+            "industry": "E-Commerce / Cloud Computing",
+            "sector": "Consumer Discretionary",
+            "founded": 1994,
+            "headquarters": "Seattle, Washington, USA",
+            "ceo": "Andy Jassy",
+            "employees": 1525000,
+            "public": true,
+            "ticker": "AMZN",
+            "market_cap_usd": "$1.9T",
+            "revenue_usd": "$575B (2023)",
+            "description": "Multinational technology company focused on e-commerce, cloud computing (AWS), digital streaming, and artificial intelligence. The world's largest online marketplace and cloud infrastructure provider.",
+            "key_products": [
+                "Amazon.com Marketplace",
+                "AWS",
+                "Prime Video",
+                "Alexa",
+                "Ring",
+                "Kindle",
+                "Whole Foods",
+                "Amazon Ads"
+            ],
+            "recent_developments": [
+                "AWS launched Bedrock AI platform with multiple foundation models",
+                "Amazon invested $4B in Anthropic for AI capabilities",
+                "Advertising business surpassed $47B annual revenue",
+                "Project Kuiper satellite internet constellation in development",
+                "Same-day delivery expanded to 90+ US metro areas"
+            ],
+            "culture_values": [
+                "Customer obsession",
+                "Ownership",
+                "Invent and simplify",
+                "Bias for action",
+                "Frugality",
+                "Leaders are right a lot"
+            ],
+            "challenges": [
+                "FTC antitrust lawsuit over marketplace practices",
+                "AWS market share pressure from Azure and Google Cloud",
+                "Labor relations and unionization movements",
+                "Regulatory challenges across EU markets"
+            ],
+            "interview_context": "Famous for Leadership Principles-based behavioral interviews. STAR method heavily used. Technical roles require strong system design at scale."
+        },
+        {
+            "name": "Apple",
+            "also_known_as": [
+                "Apple Inc"
+            ],
+            "industry": "Technology / Consumer Electronics",
+            "sector": "Information Technology",
+            "founded": 1976,
+            "headquarters": "Cupertino, California, USA",
+            "ceo": "Tim Cook",
+            "employees": 161000,
+            "public": true,
+            "ticker": "AAPL",
+            "market_cap_usd": "$3.4T",
+            "revenue_usd": "$383B (FY2023)",
+            "description": "World's most valuable company, designing premium consumer electronics, software, and services. Known for ecosystem lock-in through hardware-software integration.",
+            "key_products": [
+                "iPhone",
+                "Mac",
+                "iPad",
+                "Apple Watch",
+                "AirPods",
+                "Vision Pro",
+                "Apple Intelligence",
+                "App Store",
+                "Apple Music"
+            ],
+            "recent_developments": [
+                "Apple Intelligence AI features rolled out across devices",
+                "Vision Pro mixed reality headset launched at $3,499",
+                "Services revenue surpassed $85B annually",
+                "Apple silicon M3/M4 chips advancing performance leadership",
+                "India manufacturing expansion to reduce China dependence"
+            ],
+            "culture_values": [
+                "Simplicity",
+                "Privacy as human right",
+                "Excellence in craft",
+                "Secrecy",
+                "Integration of hardware and software"
+            ],
+            "challenges": [
+                "iPhone sales plateauing in mature markets",
+                "EU Digital Markets Act forcing App Store changes",
+                "China market competition from Huawei resurgence",
+                "AI strategy perceived as behind competitors"
+            ],
+            "interview_context": "Interviews emphasize design thinking, attention to detail, and passion for products. Engineering roles test algorithmic depth and system-level understanding."
+        },
+        {
+            "name": "Meta",
+            "also_known_as": [
+                "Meta Platforms",
+                "Facebook"
+            ],
+            "industry": "Technology / Social Media",
+            "sector": "Communication Services",
+            "founded": 2004,
+            "headquarters": "Menlo Park, California, USA",
+            "ceo": "Mark Zuckerberg",
+            "employees": 67317,
+            "public": true,
+            "ticker": "META",
+            "market_cap_usd": "$1.5T",
+            "revenue_usd": "$135B (2023)",
+            "description": "Social media and technology company operating Facebook, Instagram, WhatsApp, and Threads. Investing heavily in AI infrastructure and the metaverse through Reality Labs division.",
+            "key_products": [
+                "Facebook",
+                "Instagram",
+                "WhatsApp",
+                "Threads",
+                "Messenger",
+                "Quest VR headsets",
+                "Llama AI models",
+                "Meta Ads"
+            ],
+            "recent_developments": [
+                "Llama 3 open-source AI models competing with GPT-4",
+                "Threads reached 200M monthly active users",
+                "Reality Labs losses exceeded $16B but Quest 3 gaining traction",
+                "AI-powered ad targeting rebuilt post-Apple ATT, driving revenue rebound",
+                "Year of Efficiency restructuring cut 21,000 jobs"
+            ],
+            "culture_values": [
+                "Move fast",
+                "Focus on impact",
+                "Be direct",
+                "Build for the long term",
+                "Meta-verse vision"
+            ],
+            "challenges": [
+                "Reality Labs metaverse bet burning billions with unclear ROI",
+                "Trust deficit from Cambridge Analytica and content moderation issues",
+                "Regulatory pressure globally on data privacy",
+                "Competition from TikTok for younger demographics"
+            ],
+            "interview_context": "Values impact-driven engineers. Interviews include coding, system design, and behavioral focused on scalability and moving fast. Open-source contributions valued."
+        },
+        {
+            "name": "Netflix",
+            "also_known_as": [
+                "Netflix Inc"
+            ],
+            "industry": "Entertainment / Streaming",
+            "sector": "Communication Services",
+            "founded": 1997,
+            "headquarters": "Los Gatos, California, USA",
+            "ceo": "Ted Sarandos & Greg Peters (co-CEOs)",
+            "employees": 13000,
+            "public": true,
+            "ticker": "NFLX",
+            "market_cap_usd": "$290B",
+            "revenue_usd": "$33.7B (2023)",
+            "description": "World's largest subscription streaming service with 260M+ paid memberships in 190+ countries. Produces original content and licenses third-party entertainment.",
+            "key_products": [
+                "Netflix Streaming Platform",
+                "Netflix Games",
+                "Netflix Live Events",
+                "Ad-supported tier"
+            ],
+            "recent_developments": [
+                "Ad-supported tier reached 40M monthly active users",
+                "Password sharing crackdown added 30M net new subscribers",
+                "Expanded into live sports (NFL Christmas games, WWE Raw)",
+                "AI-driven content recommendation engine revamped",
+                "Games division growing with 90+ mobile titles"
+            ],
+            "culture_values": [
+                "Freedom and responsibility",
+                "Context not control",
+                "Highly aligned loosely coupled",
+                "Pay top of market",
+                "Radical candor"
+            ],
+            "challenges": [
+                "Content cost inflation with increasing competition",
+                "Streaming market saturation in North America",
+                "Live content rights bidding against deep-pocketed rivals",
+                "Measuring ad-tier success while maintaining brand premium perception"
+            ],
+            "interview_context": "Famous for culture of freedom and responsibility. Interviews assess independent judgment, high performance orientation, and cultural alignment."
+        },
+        {
+            "name": "Stripe",
+            "also_known_as": [
+                "Stripe Inc"
+            ],
+            "industry": "Fintech / Payments",
+            "sector": "Financial Technology",
+            "founded": 2010,
+            "headquarters": "San Francisco, California, USA",
+            "ceo": "Patrick Collison",
+            "employees": 8000,
+            "public": false,
+            "ticker": null,
+            "market_cap_usd": "$65B (private valuation)",
+            "revenue_usd": "$16.3B processing volume (2023)",
+            "description": "Financial infrastructure platform used by millions of businesses for online payment processing. Handles payments, billing, financial reporting, and revenue optimization for internet businesses of all sizes.",
+            "key_products": [
+                "Stripe Payments",
+                "Stripe Billing",
+                "Stripe Connect",
+                "Stripe Atlas",
+                "Stripe Radar (fraud)",
+                "Stripe Treasury",
+                "Stripe Issuing"
+            ],
+            "recent_developments": [
+                "Processing over $1T in annual payment volume",
+                "Launched Stripe Optimized Checkout improving conversion 10%+",
+                "Revenue grew 25% YoY reaching profitability",
+                "Expanded into embedded finance with Banking-as-a-Service",
+                "AI-powered fraud detection preventing $40B+ in fraud annually"
+            ],
+            "culture_values": [
+                "Users first",
+                "Move with urgency",
+                "Think rigorously",
+                "Trust and amplify",
+                "Global optimism"
+            ],
+            "challenges": [
+                "IPO pressure from investors after years of delays",
+                "Competition from Adyen, Square, and emerging fintech players",
+                "Regulatory complexity across 46+ countries",
+                "Enterprise market penetration vs established players like FIS"
+            ],
+            "interview_context": "Looks for deep technical rigor and clear thinking. Interviews emphasize writing quality, system design, and understanding of distributed systems."
+        },
+        {
+            "name": "OpenAI",
+            "also_known_as": [
+                "OpenAI Inc",
+                "OpenAI LP"
+            ],
+            "industry": "Artificial Intelligence",
+            "sector": "Information Technology",
+            "founded": 2015,
+            "headquarters": "San Francisco, California, USA",
+            "ceo": "Sam Altman",
+            "employees": 3500,
+            "public": false,
+            "ticker": null,
+            "market_cap_usd": "$157B (private valuation, 2024)",
+            "revenue_usd": "$3.4B ARR (2024)",
+            "description": "AI research and deployment company. Created ChatGPT, GPT-4, DALL-E, and Sora. Pioneer in large language models and artificial general intelligence research. Operates as a capped-profit company under a nonprofit parent.",
+            "key_products": [
+                "ChatGPT",
+                "GPT-4/GPT-4o",
+                "DALL-E 3",
+                "Sora (video generation)",
+                "Whisper (speech recognition)",
+                "OpenAI API",
+                "Codex"
+            ],
+            "recent_developments": [
+                "ChatGPT surpassed 200M weekly active users",
+                "Launched GPT Store for custom AI assistants",
+                "Sora video generation model announced",
+                "Transitioned from nonprofit to capped-profit structure controversy",
+                "Enterprise adoption accelerating with Fortune 500 customers"
+            ],
+            "culture_values": [
+                "Safety-first AI development",
+                "Research excellence",
+                "Beneficial AGI for humanity",
+                "Iterative deployment",
+                "Transparency (debated)"
+            ],
+            "challenges": [
+                "Corporate structure controversy — nonprofit vs profit tension",
+                "Key researcher departures (Ilya Sutskever, others)",
+                "Copyright lawsuits from NYT, authors, and artists",
+                "Compute cost escalation requiring massive capital raises",
+                "Safety vs capability tradeoff debates"
+            ],
+            "interview_context": "Hiring focuses on exceptional ML researchers and infrastructure engineers. Values first-principles thinking about AI safety and capability."
+        },
+        {
+            "name": "JPMorgan Chase",
+            "also_known_as": [
+                "JPM",
+                "JP Morgan",
+                "Chase"
+            ],
+            "industry": "Banking / Financial Services",
+            "sector": "Financials",
+            "founded": 2000,
+            "headquarters": "New York City, New York, USA",
+            "ceo": "Jamie Dimon",
+            "employees": 309926,
+            "public": true,
+            "ticker": "JPM",
+            "market_cap_usd": "$580B",
+            "revenue_usd": "$158B (2023)",
+            "description": "Largest bank in the United States by assets ($3.9T). Operates in investment banking, commercial banking, financial services, and asset management globally.",
+            "key_products": [
+                "Chase Banking",
+                "J.P. Morgan Investment Banking",
+                "J.P. Morgan Asset Management",
+                "Chase Credit Cards",
+                "J.P. Morgan Payments"
+            ],
+            "recent_developments": [
+                "Record $50B net income in 2023",
+                "Acquired First Republic Bank's assets during banking crisis",
+                "Investing $12B annually in technology including AI",
+                "Launched AI-powered LLM Suite for 60,000+ employees",
+                "JPM Coin blockchain payment system processing $1B daily"
+            ],
+            "culture_values": [
+                "Exceptional client service",
+                "Operational excellence",
+                "Integrity",
+                "Commitment to communities",
+                "Talent development"
+            ],
+            "challenges": [
+                "CEO succession planning as Jamie Dimon approaches retirement",
+                "Rising credit losses as consumer economy normalizes",
+                "Fintech disruption in retail banking and payments",
+                "Geopolitical risk exposure across global operations"
+            ],
+            "interview_context": "Traditional structured interviews mixing technical knowledge with behavioral assessment. Values analytical rigor, client orientation, and teamwork."
+        },
+        {
+            "name": "Spotify",
+            "also_known_as": [
+                "Spotify Technology SA"
+            ],
+            "industry": "Music Streaming / Entertainment",
+            "sector": "Communication Services",
+            "founded": 2006,
+            "headquarters": "Stockholm, Sweden",
+            "ceo": "Daniel Ek",
+            "employees": 9000,
+            "public": true,
+            "ticker": "SPOT",
+            "market_cap_usd": "$75B",
+            "revenue_usd": "$14.3B (2023)",
+            "description": "World's largest music streaming platform with 600M+ users including 220M+ premium subscribers across 180+ markets. Also a major podcasting platform.",
+            "key_products": [
+                "Spotify Free",
+                "Spotify Premium",
+                "Spotify for Podcasters",
+                "Spotify Wrapped",
+                "AI DJ",
+                "Spotify HiFi"
+            ],
+            "recent_developments": [
+                "First full-year operating profit achieved in 2024",
+                "AI DJ feature using generative AI for personalized radio",
+                "Audiobooks marketplace launched in 10+ markets",
+                "Raised prices across all subscription tiers globally",
+                "Workforce reduced 17% in efficiency restructuring"
+            ],
+            "culture_values": [
+                "Band mentality (work together)",
+                "Innovation through experimentation",
+                "Sincerity",
+                "Passion for creators",
+                "Data-informed creativity"
+            ],
+            "challenges": [
+                "Artist payment disputes and streaming economics criticism",
+                "Podcast investment ROI still unproven ($1B+ spent)",
+                "Music licensing costs consume 70%+ of revenue",
+                "Apple and Amazon Music cross-subsidizing with hardware/Prime"
+            ],
+            "interview_context": "Values creativity combined with data literacy. Interviews test product thinking, technical skills, and passion for audio/creator economy."
+        },
+        {
+            "name": "Nvidia",
+            "also_known_as": [
+                "NVIDIA Corporation"
+            ],
+            "industry": "Semiconductors / AI Computing",
+            "sector": "Information Technology",
+            "founded": 1993,
+            "headquarters": "Santa Clara, California, USA",
+            "ceo": "Jensen Huang",
+            "employees": 29600,
+            "public": true,
+            "ticker": "NVDA",
+            "market_cap_usd": "$2.8T",
+            "revenue_usd": "$60.9B (FY2024)",
+            "description": "Dominant designer of graphics processing units (GPUs) and AI computing platforms. Powers the majority of AI training and inference workloads globally. Revenue grew 126% in a single year driven by AI demand.",
+            "key_products": [
+                "H100/H200 GPUs",
+                "A100 GPUs",
+                "CUDA Platform",
+                "DGX Systems",
+                "GeForce Gaming GPUs",
+                "Omniverse",
+                "DRIVE Autonomous Vehicles"
+            ],
+            "recent_developments": [
+                "H100 GPU became the most sought-after chip for AI training",
+                "Data center revenue surged from $15B to $47B in one year",
+                "Blackwell next-gen GPU architecture announced",
+                "CUDA ecosystem now has 4M+ developers",
+                "Sovereign AI initiatives with 30+ countries building national AI infrastructure"
+            ],
+            "culture_values": [
+                "Intellectual honesty",
+                "Speed of light execution",
+                "One team one dream",
+                "Customer-centric innovation"
+            ],
+            "challenges": [
+                "US-China export controls limiting China market ($5B+ revenue at risk)",
+                "Customer concentration risk (hyperscalers are 50%+ of revenue)",
+                "Emerging competition from AMD, Intel, and custom chips (Google TPU, Amazon Trainium)",
+                "Supply chain constraints for advanced packaging"
+            ],
+            "interview_context": "Deep technical interviews focusing on GPU architecture, parallel computing, and CUDA programming. Values hardware-software co-design thinking."
+        },
+        {
+            "name": "Airbnb",
+            "also_known_as": [
+                "Airbnb Inc"
+            ],
+            "industry": "Travel / Hospitality Technology",
+            "sector": "Consumer Discretionary",
+            "founded": 2008,
+            "headquarters": "San Francisco, California, USA",
+            "ceo": "Brian Chesky",
+            "employees": 6907,
+            "public": true,
+            "ticker": "ABNB",
+            "market_cap_usd": "$90B",
+            "revenue_usd": "$10.5B (2023)",
+            "description": "Online marketplace for short and long-term homestays and experiences. Connects hosts who rent out their properties with travelers seeking accommodations in 220+ countries.",
+            "key_products": [
+                "Airbnb Stays",
+                "Airbnb Experiences",
+                "Airbnb Luxe",
+                "Airbnb Categories",
+                "AirCover Insurance"
+            ],
+            "recent_developments": [
+                "Launched AI-powered 'Ultimate' concierge service",
+                "Guest Favorites quality tier driving repeat bookings",
+                "Expanded into long-term stays (28+ days = 18% of bookings)",
+                "Anti-party technology reducing complaints 55%",
+                "Co-hosting marketplace connecting property owners with local managers"
+            ],
+            "culture_values": [
+                "Belong anywhere",
+                "Host community empowerment",
+                "Design-led thinking",
+                "Entrepreneurial spirit",
+                "Champion the mission"
+            ],
+            "challenges": [
+                "Regulatory crackdowns on short-term rentals in major cities",
+                "Host quality consistency across 7M+ listings",
+                "Pricing perception vs hotels for standard stays",
+                "Insurance and safety liability concerns"
+            ],
+            "interview_context": "Design-led culture. Interviews emphasize product thinking, cross-functional collaboration, and mission alignment. Brian Chesky personally involved in product decisions."
+        },
+        {
+            "name": "Shopify",
+            "also_known_as": [
+                "Shopify Inc"
+            ],
+            "industry": "E-Commerce / SaaS",
+            "sector": "Information Technology",
+            "founded": 2006,
+            "headquarters": "Ottawa, Ontario, Canada",
+            "ceo": "Tobias Lütke",
+            "employees": 8300,
+            "public": true,
+            "ticker": "SHOP",
+            "market_cap_usd": "$120B",
+            "revenue_usd": "$7.1B (2023)",
+            "description": "E-commerce platform providing tools for businesses to set up online stores, manage payments, shipping, and marketing. Powers 10%+ of US e-commerce. Positioned as the anti-Amazon for independent merchants.",
+            "key_products": [
+                "Shopify Online Store",
+                "Shopify POS",
+                "Shopify Payments",
+                "Shopify Capital",
+                "Shop App",
+                "Shopify Magic (AI)",
+                "Hydrogen (headless commerce)"
+            ],
+            "recent_developments": [
+                "Shopify Magic AI assistant for product descriptions, images, and chat",
+                "Sold logistics business to Flexport to refocus on core platform",
+                "Checkout extensibility allowing full customization",
+                "B2B commerce features attracting wholesale buyers",
+                "Shop Pay processing $1B+ in Black Friday/Cyber Monday"
+            ],
+            "culture_values": [
+                "Merchant obsession",
+                "Build for the long term",
+                "Thrive on change",
+                "Act like an owner",
+                "Digital by default (remote-first)"
+            ],
+            "challenges": [
+                "SMB merchant churn in economic downturns",
+                "Enterprise market competition from Salesforce Commerce Cloud",
+                "Logistics retreat raised questions about full-stack commerce vision",
+                "International expansion requires complex payment localization"
+            ],
+            "interview_context": "Remote-first culture. Interviews test entrepreneurial mindset, technical depth, and ability to think about merchant problems. Values builders over managers."
+        },
+        {
+            "name": "Uber",
+            "also_known_as": [
+                "Uber Technologies"
+            ],
+            "industry": "Transportation / Mobility",
+            "sector": "Industrials",
+            "founded": 2009,
+            "headquarters": "San Francisco, California, USA",
+            "ceo": "Dara Khosrowshahi",
+            "employees": 32800,
+            "public": true,
+            "ticker": "UBER",
+            "market_cap_usd": "$160B",
+            "revenue_usd": "$37.3B (2023)",
+            "description": "Global mobility and delivery platform operating ride-hailing, food delivery (Uber Eats), and freight logistics in 70+ countries. Also expanding into advertising and autonomous vehicle partnerships.",
+            "key_products": [
+                "Uber Rides",
+                "Uber Eats",
+                "Uber Freight",
+                "Uber for Business",
+                "Uber Advertising",
+                "Uber One (membership)"
+            ],
+            "recent_developments": [
+                "First full-year GAAP profitability achieved",
+                "Uber One membership reached 25M+ subscribers",
+                "Advertising business surpassed $900M annual revenue",
+                "Autonomous vehicle partnerships with Waymo and Aurora",
+                "Uber Eats grocery delivery expanded to 10,000+ stores"
+            ],
+            "culture_values": [
+                "We build globally we live locally",
+                "Obsessed with the customer",
+                "Celebrate differences",
+                "Act like an owner",
+                "Make big bets"
+            ],
+            "challenges": [
+                "Driver classification lawsuits and gig economy regulation",
+                "Autonomous vehicles could disrupt core ride-hailing model",
+                "Food delivery profitability margins razor-thin",
+                "Competition from Lyft, DoorDash, and regional players"
+            ],
+            "interview_context": "Values data-driven decision making and marketplace thinking. Interviews assess ability to think about two-sided marketplaces and growth strategy."
+        },
+        {
+            "name": "Salesforce",
+            "also_known_as": [
+                "Salesforce Inc",
+                "CRM"
+            ],
+            "industry": "Enterprise Software / CRM",
+            "sector": "Information Technology",
+            "founded": 1999,
+            "headquarters": "San Francisco, California, USA",
+            "ceo": "Marc Benioff",
+            "employees": 72682,
+            "public": true,
+            "ticker": "CRM",
+            "market_cap_usd": "$275B",
+            "revenue_usd": "$34.9B (FY2024)",
+            "description": "World's largest CRM platform provider. Cloud-based software for sales, service, marketing, commerce, and analytics. Pioneer of cloud SaaS model and platform ecosystem.",
+            "key_products": [
+                "Sales Cloud",
+                "Service Cloud",
+                "Marketing Cloud",
+                "Einstein AI",
+                "Slack",
+                "Tableau",
+                "MuleSoft",
+                "Data Cloud"
+            ],
+            "recent_developments": [
+                "Einstein Copilot generative AI embedded across all clouds",
+                "Data Cloud unifying customer data for AI-powered insights",
+                "Slack AI features for summarization and search",
+                "Activist investors pushed for margin expansion and buybacks",
+                "Agentforce platform for autonomous AI agents launched"
+            ],
+            "culture_values": [
+                "Trust",
+                "Customer success",
+                "Innovation",
+                "Equality",
+                "Sustainability",
+                "Ohana (family)"
+            ],
+            "challenges": [
+                "Seat-based pricing under pressure in AI era",
+                "Enterprise customers consolidating vendor spend",
+                "Integration complexity from 60+ acquisitions",
+                "Slack growth stagnation vs Microsoft Teams"
+            ],
+            "interview_context": "Values customer-first thinking and V2MOM alignment (Vision, Values, Methods, Obstacles, Measures). Interviews assess stakeholder management and strategic thinking."
+        },
+        {
+            "name": "Samsung",
+            "also_known_as": [
+                "Samsung Electronics"
+            ],
+            "industry": "Electronics / Semiconductors",
+            "sector": "Information Technology",
+            "founded": 1969,
+            "headquarters": "Suwon, South Korea",
+            "ceo": "Jong-Hee Han",
+            "employees": 267800,
+            "public": true,
+            "ticker": "005930.KS",
+            "market_cap_usd": "$380B",
+            "revenue_usd": "$200B (2023)",
+            "description": "South Korean multinational conglomerate. World's largest manufacturer of smartphones, memory chips, and displays. Major supplier to Apple, Nvidia, and other tech giants.",
+            "key_products": [
+                "Galaxy Smartphones",
+                "DRAM/NAND Memory",
+                "Foundry (chip manufacturing)",
+                "OLED Displays",
+                "Galaxy AI",
+                "SmartThings",
+                "Samsung Semiconductor"
+            ],
+            "recent_developments": [
+                "Galaxy AI features launched across smartphone lineup",
+                "HBM3E memory chips critical for AI GPU supply chain",
+                "3nm GAA chip manufacturing process ramping production",
+                "Recovering from memory chip price downturn with AI demand",
+                "Expanded foundry business competing with TSMC"
+            ],
+            "culture_values": [
+                "People first",
+                "Excellence in technology",
+                "Change and innovation",
+                "Integrity",
+                "Co-prosperity"
+            ],
+            "challenges": [
+                "TSMC dominance in advanced foundry manufacturing",
+                "China smartphone competition from Xiaomi and Oppo",
+                "HBM yield issues potentially losing Nvidia orders",
+                "Regulatory scrutiny of chaebol governance structure"
+            ],
+            "interview_context": "Hierarchical but increasingly global culture. Technical interviews are rigorous, especially for semiconductor and R&D roles."
+        },
+        {
+            "name": "Tata Consultancy Services",
+            "also_known_as": [
+                "TCS"
+            ],
+            "industry": "IT Services / Consulting",
+            "sector": "Information Technology",
+            "founded": 1968,
+            "headquarters": "Mumbai, Maharashtra, India",
+            "ceo": "K Krithivasan",
+            "employees": 601546,
+            "public": true,
+            "ticker": "TCS.NS",
+            "market_cap_usd": "$175B",
+            "revenue_usd": "$29B (FY2024)",
+            "description": "India's largest IT services company and part of the Tata Group. Provides IT services, consulting, and business solutions to clients in 46 countries. Pioneer in offshore delivery model.",
+            "key_products": [
+                "TCS BaNCS (banking)",
+                "TCS iON",
+                "TCS Ignio (AI)",
+                "TCS Quartz (blockchain)",
+                "Enterprise consulting services"
+            ],
+            "recent_developments": [
+                "Launched TCS AI.Cloud framework for enterprise AI adoption",
+                "Won mega-deals worth $10B+ in total contract value",
+                "Generative AI practice group formed with 100+ use cases deployed",
+                "UK operations growing fastest among geographies",
+                "Digital revenue now exceeds 40% of total"
+            ],
+            "culture_values": [
+                "Integrity",
+                "Learning and sharing",
+                "Customer partnership",
+                "Respect for the individual",
+                "Excellence"
+            ],
+            "challenges": [
+                "H-1B visa restrictions impacting US delivery model",
+                "Wage inflation in India talent market",
+                "Cloud-native competitors disrupting traditional IT services",
+                "Client budget pressures in uncertain macroeconomic environment"
+            ],
+            "interview_context": "Values domain expertise and long-term client relationships. Interviews focus on problem-solving, communication skills, and industry knowledge."
+        },
+        {
+            "name": "SpaceX",
+            "also_known_as": [
+                "Space Exploration Technologies Corp"
+            ],
+            "industry": "Aerospace / Space Technology",
+            "sector": "Industrials",
+            "founded": 2002,
+            "headquarters": "Hawthorne, California, USA",
+            "ceo": "Gwynne Shotwell (President & COO)",
+            "employees": 13000,
+            "public": false,
+            "ticker": null,
+            "market_cap_usd": "$180B (private valuation)",
+            "revenue_usd": "$8.7B (2023)",
+            "description": "Aerospace manufacturer and space transportation company. Designs, manufactures, and launches rockets and spacecraft. Operates Starlink satellite internet constellation. Developing Starship for Mars missions.",
+            "key_products": [
+                "Falcon 9",
+                "Falcon Heavy",
+                "Dragon Spacecraft",
+                "Starlink",
+                "Starship"
+            ],
+            "recent_developments": [
+                "Starship successfully completed full flight profile test",
+                "Starlink surpassed 2.5M subscribers in 70+ countries",
+                "Falcon 9 achieved 250+ successful launches with booster reuse",
+                "Awarded NASA Artemis lunar lander contract worth $2.9B",
+                "Starshield military satellite program expanding"
+            ],
+            "culture_values": [
+                "Mission to make life multiplanetary",
+                "Move fast and iterate",
+                "First-principles engineering",
+                "Flat hierarchy for ideas",
+                "Extreme dedication"
+            ],
+            "challenges": [
+                "Starship development costs and regulatory approvals",
+                "Starlink profitability despite growing subscriber base",
+                "Key person risk (Elon Musk involvement across companies)",
+                "Space debris and orbital collision concerns"
+            ],
+            "interview_context": "Extremely intense interview process. Values extraordinary work ethic, hands-on engineering skills, and passion for the mission. Known for long hours."
+        },
+        {
+            "name": "Goldman Sachs",
+            "also_known_as": [
+                "Goldman Sachs Group",
+                "GS"
+            ],
+            "industry": "Investment Banking / Financial Services",
+            "sector": "Financials",
+            "founded": 1869,
+            "headquarters": "New York City, New York, USA",
+            "ceo": "David Solomon",
+            "employees": 45300,
+            "public": true,
+            "ticker": "GS",
+            "market_cap_usd": "$140B",
+            "revenue_usd": "$46.3B (2023)",
+            "description": "Leading global investment banking, securities, and investment management firm. Known for advisory services on the world's largest M&A deals, IPOs, and complex financial transactions.",
+            "key_products": [
+                "Investment Banking Advisory",
+                "FICC Trading",
+                "Equities Trading",
+                "Asset Management",
+                "Goldman Sachs Platform Solutions",
+                "Marcus (consumer banking)"
+            ],
+            "recent_developments": [
+                "Retreated from consumer banking (sold Marcus loans portfolio)",
+                "Transaction banking platform attracting corporate deposits",
+                "AI-powered tools deployed for trading and research analysts",
+                "Asset management AUM surpassed $2.8T",
+                "Record M&A advisory revenue as deal activity rebounded"
+            ],
+            "culture_values": [
+                "Client first",
+                "Partnership culture",
+                "Excellence and integrity",
+                "Meritocracy",
+                "Long-term thinking"
+            ],
+            "challenges": [
+                "Consumer banking strategy pivot after $3B+ in losses",
+                "Regulatory capital requirements limiting proprietary trading",
+                "Talent retention competition from fintech and tech companies",
+                "Reputational risk from various legal and compliance matters"
+            ],
+            "interview_context": "Rigorous multi-round interviews. Tests financial acumen, analytical skills, and deal judgment. Behavioral questions focus on teamwork and handling pressure."
+        },
+        {
+            "name": "Reliance Industries",
+            "also_known_as": [
+                "RIL",
+                "Reliance"
+            ],
+            "industry": "Conglomerate / Energy / Telecom",
+            "sector": "Energy / Communication Services",
+            "founded": 1966,
+            "headquarters": "Mumbai, Maharashtra, India",
+            "ceo": "Mukesh Ambani (Chairman & MD)",
+            "employees": 389414,
+            "public": true,
+            "ticker": "RELIANCE.NS",
+            "market_cap_usd": "$235B",
+            "revenue_usd": "$98B (FY2024)",
+            "description": "India's largest private sector company. Diversified conglomerate spanning petrochemicals, refining, telecom (Jio), retail (Reliance Retail), and digital services. Jio disrupted India's telecom market with free 4G in 2016.",
+            "key_products": [
+                "Jio 4G/5G Telecom",
+                "Reliance Retail",
+                "JioMart",
+                "JioCinema",
+                "Jio Platforms",
+                "Petrochemicals",
+                "Oil Refining"
+            ],
+            "recent_developments": [
+                "Jio 5G deployed across 95%+ of India's districts",
+                "Reliance Retail became India's largest retailer with 18,000+ stores",
+                "JioCinema streamed IPL cricket reaching 620M viewers",
+                "$25B new energy investment plan for green hydrogen and solar",
+                "Succession planning with Isha, Akash, and Anant Ambani taking leadership roles"
+            ],
+            "culture_values": [
+                "Growth mindset",
+                "Customer centricity",
+                "Innovation at scale",
+                "National interest alignment",
+                "Execution excellence"
+            ],
+            "challenges": [
+                "O2C (oil-to-chemicals) transition during energy transition",
+                "Telecom ARPU needs to increase for 5G investment returns",
+                "Retail competition from Amazon, Flipkart, and D-Mart",
+                "Corporate governance concerns around family succession"
+            ],
+            "interview_context": "Diverse roles across industries. Values execution ability, ambition, and adaptability. Different business units have very different cultures."
+        },
+        {
+            "name": "Canva",
+            "also_known_as": [
+                "Canva Pty Ltd"
+            ],
+            "industry": "Design Technology / SaaS",
+            "sector": "Information Technology",
+            "founded": 2012,
+            "headquarters": "Sydney, Australia",
+            "ceo": "Melanie Perkins",
+            "employees": 5000,
+            "public": false,
+            "ticker": null,
+            "market_cap_usd": "$26B (private valuation)",
+            "revenue_usd": "$2.3B ARR (2024)",
+            "description": "Online visual design platform democratizing graphic design. Used by 170M+ monthly users across 190 countries for creating social media graphics, presentations, documents, and more without design skills.",
+            "key_products": [
+                "Canva Free",
+                "Canva Pro",
+                "Canva Teams",
+                "Canva Enterprise",
+                "Magic Studio (AI)",
+                "Canva Docs",
+                "Canva Presentations",
+                "Canva Print"
+            ],
+            "recent_developments": [
+                "Magic Studio AI suite including Magic Write, Magic Eraser, and text-to-image",
+                "Enterprise product growth targeting Microsoft/Google workspace alternatives",
+                "Acquired Affinity Suite (design tools) for professional designers",
+                "Canva Docs and Whiteboards expanding beyond visual design",
+                "190+ countries with content in 100+ languages"
+            ],
+            "culture_values": [
+                "Be a force for good",
+                "Empower others",
+                "Pursue excellence",
+                "Be a good human",
+                "Make complex things simple"
+            ],
+            "challenges": [
+                "Enterprise credibility against Adobe, Microsoft, and Figma",
+                "IPO market timing uncertainty for Australian tech company",
+                "AI-generated design could commoditize visual design",
+                "Scaling enterprise sales team globally"
+            ],
+            "interview_context": "Values mission alignment and user empathy. Interviews focus on product thinking, design awareness, and cultural fit. Known for generous equity and perks."
+        },
+        {
+            "name": "ByteDance",
+            "also_known_as": [
+                "ByteDance Ltd"
+            ],
+            "industry": "Social Media / Technology",
+            "sector": "Communication Services",
+            "founded": 2012,
+            "headquarters": "Beijing, China / Singapore",
+            "ceo": "Liang Ru Bo",
+            "employees": 110000,
+            "public": false,
+            "ticker": null,
+            "market_cap_usd": "$220B (private valuation)",
+            "revenue_usd": "$110B (2023)",
+            "description": "Chinese technology company operating TikTok (global) and Douyin (China). Pioneer in AI-driven content recommendation algorithms. Also operates news platform Toutiao, enterprise suite Lark, and gaming studios.",
+            "key_products": [
+                "TikTok",
+                "Douyin",
+                "Toutiao",
+                "CapCut",
+                "Lark (enterprise)",
+                "Pico VR"
+            ],
+            "recent_developments": [
+                "TikTok surpassed 1.5B monthly active users globally",
+                "TikTok Shop e-commerce reaching $20B GMV",
+                "US divest-or-ban legislation forcing potential sale or shutdown",
+                "CapCut video editor became top 10 most downloaded app globally",
+                "AI research team developing foundation models rivaling Western counterparts"
+            ],
+            "culture_values": [
+                "Always Day 1",
+                "Be grounded and humble",
+                "Dare to challenge",
+                "Seek truth and be pragmatic",
+                "Collaborate openly"
+            ],
+            "challenges": [
+                "US ban/forced sale of TikTok creates existential threat",
+                "Data privacy and security concerns across Western markets",
+                "Content moderation challenges at global scale",
+                "Geopolitical tensions between US and China affecting operations"
+            ],
+            "interview_context": "Fast-paced, high-growth environment. Interviews emphasize algorithm design, system scalability, and data-driven product thinking."
+        },
+        {
+            "name": "Deloitte",
+            "also_known_as": [
+                "Deloitte Touche Tohmatsu Limited",
+                "DTTL"
+            ],
+            "industry": "Professional Services / Consulting",
+            "sector": "Industrials",
+            "founded": 1845,
+            "headquarters": "London, United Kingdom (global)",
+            "ceo": "Joe Ucuzoglu (Deloitte US)",
+            "employees": 457000,
+            "public": false,
+            "ticker": null,
+            "market_cap_usd": "N/A (Partnership)",
+            "revenue_usd": "$65.1B (FY2024)",
+            "description": "World's largest professional services network. Provides audit, consulting, financial advisory, risk management, tax, and legal services. One of the Big Four accounting firms.",
+            "key_products": [
+                "Consulting",
+                "Audit & Assurance",
+                "Tax & Legal",
+                "Financial Advisory",
+                "Risk Advisory",
+                "Deloitte Digital"
+            ],
+            "recent_developments": [
+                "Invested $2B in AI and generative AI capabilities",
+                "Deloitte AI Institute publishing thought leadership on enterprise AI",
+                "Sustainability services growing as ESG reporting mandates expand",
+                "Cloud migration practice becoming largest service line",
+                "Revenue grew 14% driven by consulting demand"
+            ],
+            "culture_values": [
+                "Integrity",
+                "Outstanding value to clients",
+                "Commitment to each other",
+                "Strength from cultural diversity",
+                "Professional development"
+            ],
+            "challenges": [
+                "Regulatory scrutiny on audit quality and consulting conflicts",
+                "Talent retention in competitive market against tech companies",
+                "AI automating traditional audit and tax services",
+                "Partnership model limits ability to raise capital for investments"
+            ],
+            "interview_context": "Case-based interviews for consulting. Behavioral interviews assess client management, teamwork, and professional judgment. Big Four culture values collaboration."
+        }
+    ]
+}

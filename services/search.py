@@ -129,3 +129,42 @@ def _extract_founded(text: str) -> str:
         if match:
             return match.group(1)
     return ""
+
+
+def search_role_context(company_name: str, role: str) -> list[str]:
+    """
+    Search for role-specific context at a company.
+    Returns a list of relevant snippets about the role, interview culture, etc.
+    """
+    snippets = []
+
+    queries = [
+        f"{company_name} {role} interview questions",
+        f"{company_name} {role} responsibilities",
+        f"{company_name} engineering culture work environment",
+    ]
+
+    try:
+        with DDGS() as ddgs:
+            for query in queries:
+                try:
+                    results = list(ddgs.text(query, max_results=4))
+                    for r in results:
+                        snippet = r.get("body", "")
+                        if snippet:
+                            snippets.append(snippet)
+                except Exception:
+                    continue
+    except Exception as e:
+        snippets.append(f"Role context search error: {str(e)}")
+
+    # Deduplicate
+    seen = set()
+    unique = []
+    for s in snippets:
+        normalized = s.strip().lower()
+        if normalized not in seen:
+            seen.add(normalized)
+            unique.append(s)
+
+    return unique[:15]

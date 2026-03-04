@@ -1,89 +1,67 @@
 """
 Groq LLM-based company analyzer.
-Sends structured company data to the LLM with the master prompt and returns a structured JSON report.
+Generates insight-focused intelligence reports — prioritizing non-obvious, AI-synthesized insights
+that a student interviewer wouldn't find by just Googling.
 """
 
 import json
 import os
+import re
 from groq import Groq
 
-SYSTEM_PROMPT = """You are an AI-powered Business Intelligence Analyst.
+SYSTEM_PROMPT = """You are an AI-powered Company Intelligence Analyst helping a student prepare to INTERVIEW someone at a company.
 
-Your task is to generate structured, factual, and analytical company intelligence reports using:
-1. Provided structured company data
-2. Google search snippets
-3. Publicly available information
+The student is NOT applying for a job — they are CONDUCTING an interview with a person who works at this company in a specific role. Your job is to give the student deep, non-obvious intelligence about the company so they can ask smart, informed questions during the interview.
 
-You must:
-- Avoid hallucinations
-- Only use provided data + widely known public facts
-- Clearly mark uncertainty
-- Maintain professional tone
-- Return strictly structured JSON
-- Do not return markdown
-- Do not add explanations outside JSON
+You are given:
+1. Company data from a business directory (may include financials, culture, challenges, products)
+2. Web search results with recent news and context
+3. The role of the person the student will interview
 
-If information is missing or contradictory, explicitly state "Insufficient Public Data" instead of inferring.
-
-Given a company name and its knowledge base, generate:
-1. Executive Summary (120-150 words covering business positioning, industry relevance, scale and maturity)
-2. Financial Snapshot (revenue, revenue trend, employees, funding status, profitability status - mark unknown as "Not Public")
-3. Business Model Analysis (core revenue streams, target customers, pricing model, distribution channels, monetization strategy)
-4. Competitive Positioning (market category, key differentiators, competitive advantage, market maturity: Emerging/Growth/Established/Saturated)
-5. SWOT Analysis (3-5 bullets each for strengths, weaknesses, opportunities, threats)
-6. Market & Growth Outlook (industry growth trend, expansion potential, geographic opportunity, product diversification - classify as Low/Moderate/High/Aggressive)
-7. Risk Assessment (regulatory/competitive/market/operational/financial risk as Low/Medium/High, overall_risk_score 1-10 where 1=Very Stable, 10=Extremely Risky)
-8. AI / Technology Opportunities (where AI can improve operations, automation opportunities, predictive analytics use cases, cost reduction potential, innovation scope)
-9. Key Structured Insights (5 crisp bullet strategic insights)
-10. Confidence Score (Low/Medium/High based on completeness of input data)
+Your analysis must:
+- AVOID stating things anyone can find with a quick Google search (e.g., "Google is a search engine")
+- FOCUS on hidden patterns, strategic implications, and cross-referenced insights
+- Surface non-obvious connections between company developments, market dynamics, and the specific role
+- Provide actionable talking points the student can use to sound well-informed
+- Identify red flags and opportunities worth probing during the interview
+- Be concise — quality over quantity
 
 Return ONLY this JSON structure:
 {
   "company_name": "",
-  "executive_summary": "",
-  "financial_snapshot": {
-    "revenue": "",
-    "revenue_trend": "",
-    "employees": "",
-    "funding_status": "",
-    "profitability_status": ""
+  "company_snapshot": {
+    "what_they_do": "One-line description focusing on what matters, not obvious facts",
+    "industry": "",
+    "size": "e.g. 180K employees",
+    "founded": "",
+    "headquarters": ""
   },
-  "business_model_analysis": "",
-  "competitive_positioning": {
-    "market_category": "",
-    "differentiation": "",
-    "market_maturity": ""
-  },
-  "swot_analysis": {
-    "strengths": [],
-    "weaknesses": [],
-    "opportunities": [],
-    "threats": []
-  },
-  "market_growth_outlook": {
-    "industry_trend": "",
-    "growth_potential": "",
-    "expansion_opportunities": ""
-  },
-  "risk_assessment": {
-    "regulatory_risk": "",
-    "competitive_risk": "",
-    "market_risk": "",
-    "operational_risk": "",
-    "financial_risk": "",
-    "overall_risk_score": 0
-  },
-  "ai_opportunities": [],
-  "key_insights": [],
-  "analysis_confidence": ""
+  "hidden_insights": [
+    {
+      "insight": "Non-obvious AI-synthesized insight the student couldn't easily find",
+      "significance": "Why this matters and how to use it in the interview"
+    }
+  ],
+  "talking_points": [
+    "Specific things the student can mention to sound impressively well-prepared (not generic)"
+  ],
+  "red_flags_opportunities": [
+    {
+      "item": "Something worth probing deeper during the interview",
+      "type": "red_flag OR opportunity",
+      "probe_question": "A specific follow-up question to ask about this"
+    }
+  ],
+  "analysis_confidence": "Low/Medium/High"
 }
 
+Generate 5-7 hidden insights, 4-6 talking points, and 3-5 red flags/opportunities.
 No additional commentary. Return ONLY valid JSON."""
 
 
 def analyze_company(company_data: dict) -> dict:
     """
-    Send company data to Groq LLM and return structured analysis.
+    Send company data to Groq LLM and return insight-focused analysis.
     """
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
@@ -93,7 +71,6 @@ def analyze_company(company_data: dict) -> dict:
 
     user_message = json.dumps(company_data, indent=2, default=str)
 
-    # Try primary model, fall back if needed
     models = ["llama-3.3-70b-versatile", "llama3-70b-8192", "mixtral-8x7b-32768"]
     last_error = None
 
@@ -105,8 +82,8 @@ def analyze_company(company_data: dict) -> dict:
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_message}
                 ],
-                temperature=0.2,
-                max_tokens=6000,
+                temperature=0.3,
+                max_tokens=5000,
                 top_p=0.9,
                 response_format={"type": "json_object"}
             )
@@ -114,9 +91,8 @@ def analyze_company(company_data: dict) -> dict:
             response_text = completion.choices[0].message.content
             result = json.loads(response_text)
 
-            # Validate required keys
-            required_keys = ["company_name", "executive_summary", "financial_snapshot",
-                             "swot_analysis", "risk_assessment", "key_insights"]
+            required_keys = ["company_name", "company_snapshot", "hidden_insights",
+                             "talking_points", "red_flags_opportunities"]
             for key in required_keys:
                 if key not in result:
                     result[key] = "Analysis unavailable"
@@ -125,9 +101,7 @@ def analyze_company(company_data: dict) -> dict:
             return result
 
         except json.JSONDecodeError:
-            # Try to extract JSON from the response
             try:
-                import re
                 json_match = re.search(r'\{[\s\S]*\}', response_text)
                 if json_match:
                     result = json.loads(json_match.group())

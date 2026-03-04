@@ -1,10 +1,11 @@
 """
 Business Intelligence Assist — Flask Application
-Serves the frontend and provides the /api/analyze endpoint.
+Agentic AI Orchestration for company intelligence and interview coaching.
 """
 
 import os
 import json
+import logging
 import traceback
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -12,11 +13,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from services.search import search_company
-from services.analyzer import analyze_company
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%H:%M:%S"
+)
+
+from agents.orchestrator import Orchestrator
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
+
+# Initialize orchestrator once
+orchestrator = Orchestrator()
 
 
 @app.route("/")
@@ -28,25 +38,29 @@ def index():
 @app.route("/api/analyze", methods=["POST"])
 def analyze():
     """
-    Analyze a company.
-    Expects JSON: { "company_name": "..." }
-    Returns structured intelligence report JSON.
+    Analyze a company and generate interview coaching for a specific role.
+    Expects JSON: { "company_name": "...", "role": "..." }
+    Returns structured intelligence report + interview questions.
     """
     try:
         data = request.get_json(force=True)
         company_name = data.get("company_name", "").strip()
+        role = data.get("role", "").strip()
 
         if not company_name:
             return jsonify({"error": "Company name is required"}), 400
 
+        if not role:
+            return jsonify({"error": "Role is required"}), 400
+
         if len(company_name) > 200:
             return jsonify({"error": "Company name too long"}), 400
 
-        # Step 1: Search for company data
-        search_data = search_company(company_name)
+        if len(role) > 100:
+            return jsonify({"error": "Role description too long"}), 400
 
-        # Step 2: Analyze with LLM
-        report = analyze_company(search_data)
+        # Run the agentic pipeline
+        report = orchestrator.run(company_name, role)
 
         return jsonify(report), 200
 
@@ -62,10 +76,17 @@ def analyze():
 @app.route("/api/health")
 def health():
     """Health check endpoint."""
-    return jsonify({"status": "ok", "service": "Business Intelligence Assist"}), 200
+    return jsonify({
+        "status": "ok",
+        "service": "Business Intelligence Assist",
+        "version": "2.0.0",
+        "agents": ["CompanyIntelAgent", "InterviewAgent"]
+    }), 200
 
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
-    print(f"\n🔷 Business Intelligence Assist running at http://localhost:{port}\n")
+    print(f"\n🔷 Business Intelligence Assist v2.0 running at http://localhost:{port}\n")
+    print(f"   Agents: CompanyIntelAgent → InterviewAgent")
+    print(f"   Knowledge Bases: Company Directory, Search Service, Interview History\n")
     app.run(host="0.0.0.0", port=port, debug=True)

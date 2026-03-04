@@ -1,6 +1,10 @@
 /**
- * Business Intelligence Assist — Client-side application logic
- * Handles form submission, API calls, and dashboard rendering.
+ * BI Assist — Transcript & Interview Coach
+ * Client-side application logic.
+ *
+ * Use case: Student is preparing to INTERVIEW someone at a company.
+ * - Company Insights tab: non-obvious intelligence, talking points, red flags
+ * - Questions to Ask tab: smart questions the student should ASK the interviewee
  */
 
 (function () {
@@ -9,6 +13,7 @@
   // ── DOM References ──────────────────────────────────
   const searchForm = document.getElementById('search-form');
   const companyInput = document.getElementById('company-input');
+  const roleInput = document.getElementById('role-input');
   const analyzeBtn = document.getElementById('analyze-btn');
   const btnText = document.getElementById('btn-text');
   const btnSpinner = document.getElementById('btn-spinner');
@@ -16,18 +21,39 @@
   const loadingOverlay = document.getElementById('loading-overlay');
   const loadingSteps = document.getElementById('loading-steps');
   const reportDashboard = document.getElementById('report-dashboard');
-  const heroSection = document.getElementById('hero-section');
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const contentIntelligence = document.getElementById('content-intelligence');
+  const contentInterview = document.getElementById('content-interview');
+  const pipelineTrace = document.getElementById('pipeline-trace');
 
   // ── Loading Step Messages ───────────────────────────
   const LOADING_MESSAGES = [
-    '🔍 Searching public data sources...',
-    '📊 Gathering financial information...',
-    '🏢 Analyzing company structure...',
-    '🤖 Running AI intelligence engine...',
-    '📈 Building SWOT analysis...',
-    '⚡ Generating strategic insights...',
-    '✅ Finalizing report...'
+    '🔍 Agent 1: Checking business directory...',
+    '🌐 Agent 1: Running web search for latest data...',
+    '🤖 Agent 1: Synthesizing hidden insights...',
+    '🎯 Agent 2: Searching role-specific context...',
+    '📝 Agent 2: Consulting interview knowledge base...',
+    '💡 Agent 2: Generating questions you should ask...',
+    '⚡ Orchestrator: Merging agent outputs...',
+    '✅ Pipeline complete — building your prep sheet...'
   ];
+
+  // ── Tab Navigation ──────────────────────────────────
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (tab === 'intelligence') {
+        contentIntelligence.classList.add('active');
+        contentInterview.classList.remove('active');
+      } else {
+        contentInterview.classList.add('active');
+        contentIntelligence.classList.remove('active');
+      }
+    });
+  });
 
   // ── Event Listeners ─────────────────────────────────
   searchForm.addEventListener('submit', handleSubmit);
@@ -35,7 +61,12 @@
   async function handleSubmit(e) {
     e.preventDefault();
     const companyName = companyInput.value.trim();
-    if (!companyName) return;
+    const role = roleInput.value.trim();
+
+    if (!companyName || !role) {
+      showError('Both company name and role are required.');
+      return;
+    }
 
     setLoading(true);
     hideError();
@@ -45,18 +76,17 @@
       const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ company_name: companyName })
+        body: JSON.stringify({ company_name: companyName, role: role })
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.error || 'Analysis failed. Please try again.');
       }
 
       renderReport(data);
     } catch (err) {
-      showError(err.message || 'Network error. Please check your connection and try again.');
+      showError(err.message || 'Network error. Please check your connection.');
     } finally {
       setLoading(false);
     }
@@ -65,10 +95,9 @@
   // ── UI State Helpers ────────────────────────────────
   function setLoading(active) {
     analyzeBtn.disabled = active;
-    btnText.textContent = active ? 'Analyzing...' : 'Analyze';
+    btnText.textContent = active ? 'Running Agents...' : 'Prepare My Interview';
     btnSpinner.style.display = active ? 'block' : 'none';
     loadingOverlay.classList.toggle('active', active);
-
     if (active) {
       loadingSteps.innerHTML = '';
       startLoadingSteps();
@@ -80,17 +109,13 @@
     let i = 0;
     clearInterval(loadingInterval);
     loadingInterval = setInterval(() => {
-      if (i >= LOADING_MESSAGES.length) {
-        clearInterval(loadingInterval);
-        return;
-      }
+      if (i >= LOADING_MESSAGES.length) { clearInterval(loadingInterval); return; }
       const step = document.createElement('div');
       step.className = 'loading-step';
-      step.style.animationDelay = '0s';
       step.textContent = LOADING_MESSAGES[i];
       loadingSteps.appendChild(step);
       i++;
-    }, 2500);
+    }, 3000);
   }
 
   function showError(msg) {
@@ -98,180 +123,294 @@
     errorBanner.classList.add('active');
   }
 
-  function hideError() {
-    errorBanner.classList.remove('active');
-  }
-
-  function hideReport() {
-    reportDashboard.classList.remove('active');
-  }
+  function hideError() { errorBanner.classList.remove('active'); }
+  function hideReport() { reportDashboard.classList.remove('active'); }
 
   // ── Report Renderer ─────────────────────────────────
   function renderReport(data) {
     clearInterval(loadingInterval);
-    reportDashboard.innerHTML = '';
+    contentIntelligence.innerHTML = '';
+    contentInterview.innerHTML = '';
+    pipelineTrace.innerHTML = '';
 
-    // Header
+    // Reset tabs
+    tabBtns.forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-intelligence').classList.add('active');
+    contentIntelligence.classList.add('active');
+    contentInterview.classList.remove('active');
+
+    // ── REPORT HEADER ─────────────────────────────
     const confidenceLevel = (data.analysis_confidence || 'Medium').toLowerCase();
     const confidenceClass = confidenceLevel.includes('high') ? 'confidence-high' :
       confidenceLevel.includes('low') ? 'confidence-low' : 'confidence-medium';
 
-    reportDashboard.innerHTML = `
-      <div class="report-header">
-        <h2 class="report-company-name">${escHtml(data.company_name || 'Company')}</h2>
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'report-header';
+    headerDiv.innerHTML = `
+      <div>
+        <h2 class="report-company-name">${esc(data.company_name || 'Company')}</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span class="report-role-badge">👤 Interviewing: ${esc(data.role_analyzed || '')}</span>
         <span class="report-confidence ${confidenceClass}">
-          ● ${escHtml(data.analysis_confidence || 'Medium')} Confidence
+          ● ${esc(data.analysis_confidence || 'Medium')} Confidence
         </span>
       </div>
     `;
+    contentIntelligence.appendChild(headerDiv);
 
-    // 1. Executive Summary
-    addSection(reportDashboard, {
-      icon: '📋', iconClass: 'blue', title: 'Executive Summary',
-      body: `<p>${escHtml(data.executive_summary || 'N/A')}</p>`
-    });
+    // ── COMPANY INSIGHTS TAB ──────────────────────
 
-    // 2-col row: Financial + Competitive
-    const row1 = createRow2Col();
-    reportDashboard.appendChild(row1);
-
-    // 2. Financial Snapshot
-    const fin = data.financial_snapshot || {};
-    addSection(row1, {
-      icon: '💰', iconClass: 'emerald', title: 'Financial Snapshot',
+    // 1. Company Snapshot (brief)
+    const snap = data.company_snapshot || {};
+    addSection(contentIntelligence, {
+      icon: '🏢', iconClass: 'black', title: 'Company at a Glance',
       body: `
-        <div class="finance-grid">
-          ${financeItem('Revenue', fin.revenue)}
-          ${financeItem('Trend', fin.revenue_trend)}
-          ${financeItem('Employees', fin.employees)}
-          ${financeItem('Funding', fin.funding_status)}
-          ${financeItem('Profitability', fin.profitability_status)}
+        <div class="snapshot-grid">
+          ${snapItem('What They Do', snap.what_they_do)}
+          ${snapItem('Industry', snap.industry)}
+          ${snapItem('Size', snap.size)}
+          ${snapItem('Founded', snap.founded)}
+          ${snapItem('HQ', snap.headquarters)}
         </div>
       `
     });
 
-    // 4. Competitive Positioning
-    const comp = data.competitive_positioning || {};
-    addSection(row1, {
-      icon: '🎯', iconClass: 'cyan', title: 'Competitive Positioning',
-      body: `
-        <div class="positioning-grid">
-          ${positioningItem('Market Category', comp.market_category)}
-          ${positioningItem('Differentiation', comp.differentiation)}
-          ${positioningItem('Market Maturity', comp.market_maturity)}
-        </div>
-      `
-    });
-
-    // 3. Business Model Analysis
-    addSection(reportDashboard, {
-      icon: '🏗️', iconClass: 'purple', title: 'Business Model Analysis',
-      body: `<p>${escHtml(data.business_model_analysis || 'N/A')}</p>`
-    });
-
-    // 5. SWOT Analysis
-    const swot = data.swot_analysis || {};
-    addSection(reportDashboard, {
-      icon: '🧭', iconClass: 'amber', title: 'SWOT Analysis',
-      body: `
-        <div class="swot-grid">
-          ${swotQuadrant('Strengths', 'strengths', swot.strengths)}
-          ${swotQuadrant('Weaknesses', 'weaknesses', swot.weaknesses)}
-          ${swotQuadrant('Opportunities', 'opportunities', swot.opportunities)}
-          ${swotQuadrant('Threats', 'threats', swot.threats)}
-        </div>
-      `
-    });
-
-    // 2-col row: Market Outlook + Risk
-    const row2 = createRow2Col();
-    reportDashboard.appendChild(row2);
-
-    // 6. Market & Growth Outlook
-    const mgo = data.market_growth_outlook || {};
-    const growthLevel = (mgo.growth_potential || 'moderate').toLowerCase();
-    addSection(row2, {
-      icon: '📈', iconClass: 'emerald', title: 'Market & Growth Outlook',
-      body: `
-        <div class="outlook-grid">
-          ${outlookItem('Industry Trend', mgo.industry_trend)}
-          <div class="outlook-item">
-            <div class="outlook-label">Growth Potential</div>
-            <span class="growth-badge ${growthLevel}">${escHtml(mgo.growth_potential || 'N/A')}</span>
+    // 2. Hidden Insights (main value)
+    const insights = data.hidden_insights || [];
+    if (insights.length > 0) {
+      addSection(contentIntelligence, {
+        icon: '💡', iconClass: 'orange', title: 'Hidden Insights — What You Won\'t Find on Google',
+        body: `
+          <div class="insights-list">
+            ${insights.map((item, i) => {
+          const insight = typeof item === 'string' ? item : item.insight || '';
+          const sig = typeof item === 'object' ? (item.significance || '') : '';
+          return `
+                <div class="insight-item">
+                  <span class="insight-number">${i + 1}</span>
+                  <div>
+                    <div style="font-weight:600;color:var(--gray-900);margin-bottom:4px">${esc(insight)}</div>
+                    ${sig ? `<div style="font-size:12px;color:var(--gray-500);font-style:italic">↳ ${esc(sig)}</div>` : ''}
+                  </div>
+                </div>
+              `;
+        }).join('')}
           </div>
-          ${outlookItem('Expansion', mgo.expansion_opportunities)}
-        </div>
-      `
-    });
+        `
+      });
+    }
 
-    // 7. Risk Assessment
-    const risk = data.risk_assessment || {};
-    const riskScore = risk.overall_risk_score || 0;
-    const riskColor = riskScore <= 3 ? 'var(--accent-emerald)' :
-      riskScore <= 6 ? 'var(--accent-amber)' : 'var(--accent-rose)';
+    // 3. Talking Points
+    const talkingPoints = data.talking_points || [];
+    if (talkingPoints.length > 0) {
+      addSection(contentIntelligence, {
+        icon: '🗣️', iconClass: 'emerald', title: 'Talking Points — Sound Impressively Prepared',
+        body: `
+          <div class="ai-list">
+            ${talkingPoints.map(tp => `
+              <div class="ai-item">
+                <span class="ai-item-icon">✦</span>
+                <span>${esc(tp)}</span>
+              </div>
+            `).join('')}
+          </div>
+        `
+      });
+    }
 
-    addSection(row2, {
-      icon: '⚠️', iconClass: 'rose', title: 'Risk Assessment',
-      body: `
-        <div class="risk-list">
-          ${riskItem('Regulatory', risk.regulatory_risk)}
-          ${riskItem('Competitive', risk.competitive_risk)}
-          ${riskItem('Market', risk.market_risk)}
-          ${riskItem('Operational', risk.operational_risk)}
-          ${riskItem('Financial', risk.financial_risk)}
-        </div>
-        <div class="risk-score-display">
-          <span class="risk-score-label">Overall Risk Score</span>
-          <span class="risk-score-value" style="color:${riskColor}">${riskScore}/10</span>
-        </div>
-      `
-    });
+    // 4. Red Flags & Opportunities
+    const rfos = data.red_flags_opportunities || [];
+    if (rfos.length > 0) {
+      addSection(contentIntelligence, {
+        icon: '🔎', iconClass: 'amber', title: 'Red Flags & Opportunities — What to Probe',
+        body: `
+          <div class="rfo-list">
+            ${rfos.map(rfo => {
+          const item = typeof rfo === 'string' ? rfo : rfo.item || '';
+          const type = typeof rfo === 'object' ? (rfo.type || 'opportunity') : 'opportunity';
+          const probe = typeof rfo === 'object' ? (rfo.probe_question || '') : '';
+          const isRedFlag = type.toLowerCase().includes('red');
+          return `
+                <div class="rfo-item ${isRedFlag ? 'rfo-red' : 'rfo-green'}">
+                  <div class="rfo-header">
+                    <span class="rfo-badge ${isRedFlag ? 'rfo-badge-red' : 'rfo-badge-green'}">${isRedFlag ? '⚠️ Red Flag' : '🚀 Opportunity'}</span>
+                    <span class="rfo-text">${esc(item)}</span>
+                  </div>
+                  ${probe ? `<div class="rfo-probe">💬 Ask: "${esc(probe)}"</div>` : ''}
+                </div>
+              `;
+        }).join('')}
+          </div>
+        `
+      });
+    }
 
-    // 8. AI Opportunities
-    const aiOps = data.ai_opportunities || [];
-    addSection(reportDashboard, {
-      icon: '🤖', iconClass: 'purple', title: 'AI / Technology Opportunities',
-      body: `
-        <div class="ai-list">
-          ${aiOps.map(item => `
-            <div class="ai-item">
-              <span class="ai-item-icon">◆</span>
-              <span>${escHtml(item)}</span>
-            </div>
-          `).join('')}
-        </div>
-      `
-    });
+    // ── INTERVIEW TAB ────────────────────────────
+    renderInterviewSection(data);
 
-    // 9. Key Insights
-    const insights = data.key_insights || [];
-    addSection(reportDashboard, {
-      icon: '💡', iconClass: 'amber', title: 'Key Strategic Insights',
-      body: `
-        <div class="insights-list">
-          ${insights.map((item, i) => `
-            <div class="insight-item">
-              <span class="insight-number">${i + 1}</span>
-              <span>${escHtml(item)}</span>
-            </div>
-          `).join('')}
-        </div>
-      `
-    });
+    // ── PIPELINE TRACE ───────────────────────────
+    renderPipelineTrace(data._pipeline);
 
-    // Show the dashboard
+    // Show dashboard
     reportDashboard.classList.add('active');
-
-    // Scroll to report
     setTimeout(() => {
       reportDashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 200);
 
-    // Apply staggered animation
-    const cards = reportDashboard.querySelectorAll('.section-card');
-    cards.forEach((card, i) => {
-      card.style.animationDelay = `${i * 0.08}s`;
+    // Staggered animation
+    reportDashboard.querySelectorAll('.section-card').forEach((card, i) => {
+      card.style.animationDelay = `${i * 0.06}s`;
     });
+  }
+
+  // ── Interview Section Renderer ──────────────────────
+  function renderInterviewSection(data) {
+    const questions = data.interview_questions || [];
+    const tips = data.coaching_tips || [];
+    const role = data.role_analyzed || '';
+    const company = data.company_name || '';
+
+    contentInterview.innerHTML = '';
+
+    // Header
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'interview-header';
+    headerDiv.innerHTML = `
+      <h3>🎯 Questions to Ask the ${esc(role)} at ${esc(company)}</h3>
+      <p>${questions.length} smart questions generated from company intelligence, web research, and interview knowledge base. Click any question to see the expected answer and why it's worth asking.</p>
+    `;
+    contentInterview.appendChild(headerDiv);
+
+    if (questions.length === 0) {
+      const empty = document.createElement('p');
+      empty.style.cssText = 'color:var(--gray-400);text-align:center;padding:40px 0';
+      empty.textContent = 'No questions generated. Please try again.';
+      contentInterview.appendChild(empty);
+      return;
+    }
+
+    const catLabels = {
+      'role_specific': '👤 Role-Specific',
+      'strategic': '📈 Strategic',
+      'culture_insight': '🏢 Culture & Team',
+      // Fallbacks for old categories
+      'technical': '🔧 Technical',
+      'company_specific': '🏢 Company',
+      'behavioral': '🤝 Behavioral'
+    };
+
+    // Category filters
+    const categories = [...new Set(questions.map(q => q.category || 'general'))];
+    const filterDiv = document.createElement('div');
+    filterDiv.className = 'interview-categories';
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'category-filter active';
+    allBtn.dataset.cat = 'all';
+    allBtn.textContent = `All (${questions.length})`;
+    filterDiv.appendChild(allBtn);
+
+    categories.forEach(cat => {
+      const count = questions.filter(q => q.category === cat).length;
+      const btn = document.createElement('button');
+      btn.className = 'category-filter';
+      btn.dataset.cat = cat;
+      btn.textContent = `${catLabels[cat] || cat} (${count})`;
+      filterDiv.appendChild(btn);
+    });
+
+    contentInterview.appendChild(filterDiv);
+
+    // Question cards
+    const listDiv = document.createElement('div');
+    listDiv.className = 'question-list';
+
+    questions.forEach((q, i) => {
+      const card = document.createElement('div');
+      card.className = 'question-card';
+      card.dataset.category = q.category || 'general';
+
+      const difficulty = (q.difficulty || 'medium').toLowerCase();
+      const category = q.category || 'general';
+      const whyAsk = q.why_ask_this || q.reasoning || '';
+
+      card.innerHTML = `
+        <div class="question-card-header">
+          <span class="question-number">${i + 1}</span>
+          <div class="question-content">
+            <div class="question-text">${esc(q.question || '')}</div>
+            <div class="question-meta">
+              <span class="question-category-badge badge-${escAttr(category)}">${esc(catLabels[category] || category)}</span>
+              <span class="difficulty-badge difficulty-${escAttr(difficulty)}">${esc(difficulty)}</span>
+            </div>
+          </div>
+          <span class="question-expand-icon">▾</span>
+        </div>
+        <div class="question-answer">
+          <div class="answer-label">What They'll Likely Say</div>
+          <div class="answer-text">${esc(q.expected_answer || 'N/A')}</div>
+          ${whyAsk ? `<div class="answer-reasoning">🎯 <strong>Why ask this:</strong> ${esc(whyAsk)}</div>` : ''}
+        </div>
+      `;
+
+      card.querySelector('.question-card-header').addEventListener('click', () => {
+        card.classList.toggle('expanded');
+      });
+
+      listDiv.appendChild(card);
+    });
+
+    contentInterview.appendChild(listDiv);
+
+    // Category filter delegation
+    filterDiv.addEventListener('click', (e) => {
+      const btn = e.target.closest('.category-filter');
+      if (!btn) return;
+      filterDiv.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      listDiv.querySelectorAll('.question-card').forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+      });
+    });
+
+    // Coaching Tips
+    if (tips.length > 0) {
+      const coachingSection = document.createElement('div');
+      coachingSection.className = 'coaching-section';
+      coachingSection.innerHTML = `
+        <div class="coaching-card">
+          <div class="coaching-title">🎓 Interview Coaching Tips for You</div>
+          <ul class="coaching-list">
+            ${tips.map(tip => `<li>${esc(tip)}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+      contentInterview.appendChild(coachingSection);
+    }
+  }
+
+  // ── Pipeline Trace Renderer ─────────────────────────
+  function renderPipelineTrace(pipeline) {
+    if (!pipeline) return;
+    const agents = pipeline.agent_trace || [];
+    const total = pipeline.total_elapsed_seconds || 0;
+
+    let html = '<div class="pipeline-title">Agentic Pipeline Trace</div>';
+    html += '<div class="pipeline-agents">';
+    agents.forEach(agent => {
+      html += `
+        <div class="pipeline-agent">
+          <span class="pipeline-agent-status ${agent.status || 'unknown'}"></span>
+          <span>${esc(agent.agent || 'Agent')}</span>
+          <span class="pipeline-agent-time">${agent.elapsed_seconds || 0}s</span>
+        </div>
+      `;
+    });
+    html += '</div>';
+    html += `<div class="pipeline-total">Total pipeline time: <strong>${total}s</strong></div>`;
+    pipelineTrace.innerHTML = html;
   }
 
   // ── Component Builders ──────────────────────────────
@@ -281,79 +420,32 @@
     card.innerHTML = `
       <div class="section-header">
         <div class="section-icon ${iconClass}">${icon}</div>
-        <h3 class="section-title">${escHtml(title)}</h3>
+        <h3 class="section-title">${esc(title)}</h3>
       </div>
       <div class="section-body">${body}</div>
     `;
     parent.appendChild(card);
   }
 
-  function createRow2Col() {
-    const row = document.createElement('div');
-    row.className = 'report-grid-2col';
-    return row;
-  }
-
-  function financeItem(label, value) {
+  function snapItem(label, value) {
     return `
-      <div class="finance-item">
-        <div class="finance-label">${escHtml(label)}</div>
-        <div class="finance-value">${escHtml(value || 'Not Public')}</div>
-      </div>
-    `;
-  }
-
-  function positioningItem(label, value) {
-    return `
-      <div class="positioning-item">
-        <div class="positioning-label">${escHtml(label)}</div>
-        <div class="positioning-value">${escHtml(value || 'N/A')}</div>
-      </div>
-    `;
-  }
-
-  function outlookItem(label, value) {
-    return `
-      <div class="outlook-item">
-        <div class="outlook-label">${escHtml(label)}</div>
-        <div class="outlook-value">${escHtml(value || 'N/A')}</div>
-      </div>
-    `;
-  }
-
-  function swotQuadrant(title, cls, items) {
-    const list = (items || []).map(i => `<li>${escHtml(i)}</li>`).join('');
-    return `
-      <div class="swot-quadrant">
-        <div class="swot-quadrant-title ${cls}">
-          ${cls === 'strengths' ? '💪' : cls === 'weaknesses' ? '⚡' : cls === 'opportunities' ? '🚀' : '🛡️'}
-          ${escHtml(title)}
-        </div>
-        <ul class="swot-list">${list || '<li>N/A</li>'}</ul>
-      </div>
-    `;
-  }
-
-  function riskItem(label, level) {
-    const l = (level || 'low').toLowerCase();
-    const cls = l.includes('high') ? 'high' : l.includes('medium') ? 'medium' : 'low';
-    return `
-      <div class="risk-item">
-        <span class="risk-label">${escHtml(label)}</span>
-        <div class="risk-bar-track">
-          <div class="risk-bar-fill ${cls}"></div>
-        </div>
-        <span class="risk-level ${cls}">${escHtml(level || 'Low')}</span>
+      <div class="snapshot-item">
+        <div class="snapshot-label">${esc(label)}</div>
+        <div class="snapshot-value">${esc(value || 'N/A')}</div>
       </div>
     `;
   }
 
   // ── Utility ─────────────────────────────────────────
-  function escHtml(str) {
+  function esc(str) {
     if (!str) return '';
     const div = document.createElement('div');
     div.textContent = String(str);
     return div.innerHTML;
+  }
+
+  function escAttr(str) {
+    return String(str || '').replace(/[^a-zA-Z0-9_-]/g, '_');
   }
 
 })();
