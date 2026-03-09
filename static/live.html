@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BI Assist — Live Interview Coaching Overlay. Real-time insights during your interview." />
+  <title>BI Assist — Live Coaching</title>
+  <link rel="stylesheet" href="/live.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%23f97316'/><text x='50' y='68' text-anchor='middle' fill='white' font-size='50' font-weight='bold' font-family='Inter,sans-serif'>BI</text></svg>">
+</head>
+
+<body>
+  <div class="live-app">
+
+    <!-- Header -->
+    <header class="live-header">
+      <div class="live-logo">
+        <div class="logo-dot"></div>
+        <span>BI Assist</span>
+        <span class="live-badge">LIVE</span>
+      </div>
+      <div class="session-status" id="session-status">
+        <span class="status-dot offline"></span>
+        <span id="status-text">Disconnected</span>
+      </div>
+    </header>
+
+    <!-- Company Banner -->
+    <div class="company-banner" id="company-banner">
+      <div class="banner-info">
+        <span class="banner-company" id="banner-company">—</span>
+        <span class="banner-role" id="banner-role">—</span>
+      </div>
+      <div class="banner-actions">
+        <button class="btn-session btn-start" id="btn-start">▶ Start Session</button>
+        <button class="btn-session btn-end" id="btn-end" style="display:none">■ End Session</button>
+      </div>
+    </div>
+
+    <!-- Coaching Cards -->
+    <div class="cards-container" id="cards-container">
+
+      <!-- Top Insights -->
+      <div class="coach-card" id="card-insights">
+        <div class="card-header">
+          <span class="card-icon">💡</span>
+          <h3>Top Insights</h3>
+          <span class="card-counter" id="insights-counter">0</span>
+        </div>
+        <div class="card-body" id="insights-body">
+          <div class="card-placeholder">Start a session to see live insights...</div>
+        </div>
+      </div>
+
+      <!-- Talking Points -->
+      <div class="coach-card" id="card-talking">
+        <div class="card-header">
+          <span class="card-icon">🗣️</span>
+          <h3>Talking Points</h3>
+          <span class="card-counter" id="talking-counter">0</span>
+        </div>
+        <div class="card-body" id="talking-body">
+          <div class="card-placeholder">Talking points will appear here...</div>
+        </div>
+      </div>
+
+      <!-- Red Flags & Opportunities -->
+      <div class="coach-card" id="card-flags">
+        <div class="card-header">
+          <span class="card-icon">🔎</span>
+          <h3>Red Flags & Opportunities</h3>
+          <span class="card-counter" id="flags-counter">0</span>
+        </div>
+        <div class="card-body" id="flags-body">
+          <div class="card-placeholder">Flags & opportunities will appear here...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transcript Input -->
+    <div class="transcript-input-area" id="transcript-area">
+      <div class="input-header">
+        <span>📝 Transcript Input</span>
+        <div class="speech-toggle">
+          <button class="btn-mic" id="btn-mic" title="Toggle speech recognition">
+            🎤 <span id="mic-label">Off</span>
+          </button>
+        </div>
+      </div>
+      <div class="input-row">
+        <textarea id="transcript-input" placeholder="Type or paste transcript text here..." rows="2"></textarea>
+        <button class="btn-send" id="btn-send" disabled>Send</button>
+      </div>
+      <div class="speech-status" id="speech-status" style="display:none">
+        <span class="pulse-dot"></span>
+        <span>Listening via browser microphone...</span>
+      </div>
+    </div>
+
+    <!-- Post-Session Summary -->
+    <div class="post-session" id="post-session" style="display:none">
+      <div class="post-header">
+        <h3>📋 Session Complete</h3>
+        <p id="post-summary">Session summary will appear here.</p>
+      </div>
+      <div class="post-transcript">
+        <h4>Full Transcript</h4>
+        <div class="transcript-text" id="post-transcript-text"></div>
+      </div>
+      <div class="post-actions">
+        <button class="btn-process" id="btn-process-kb">📊 Process & Save to Knowledge Base</button>
+        <button class="btn-secondary" id="btn-copy-transcript">📋 Copy Transcript</button>
+        <button class="btn-secondary" id="btn-new-session">🔄 New Session</button>
+      </div>
+      <div class="process-result" id="process-result" style="display:none"></div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="/live.js"></script>
+</body>
+
+</html>

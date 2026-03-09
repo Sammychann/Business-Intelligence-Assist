@@ -124,3 +124,41 @@ class KnowledgeBase:
                     all_questions.extend(entry.get("questions", []))
 
         return all_questions
+
+    # ── Transcript Insights ────────────────────────────
+
+    def save_transcript_insights(self, company: str, role: str, processed_data: dict):
+        """
+        Save processed transcript insights for a company + role.
+        Stores under a 'transcript_insights' sub-key in the history.
+        """
+        if not processed_data:
+            return
+
+        history = self._load()
+        ti_key = f"_transcript_{self._key(company, role)}"
+
+        if ti_key not in history:
+            history[ti_key] = []
+
+        from datetime import datetime
+        history[ti_key].append({
+            "timestamp": datetime.now().isoformat(),
+            "data": processed_data
+        })
+        self._save(history)
+        logger.info(
+            f"[KnowledgeBase] Saved transcript insights "
+            f"for '{company}' / '{role}'"
+        )
+
+    def get_transcript_history(self, company: str, role: str) -> list[dict]:
+        """
+        Retrieve past transcript insights for a company + role.
+
+        Returns:
+            List of transcript insight entries (may be empty).
+        """
+        history = self._load()
+        ti_key = f"_transcript_{self._key(company, role)}"
+        return history.get(ti_key, [])

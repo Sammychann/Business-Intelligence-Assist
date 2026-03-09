@@ -34,6 +34,7 @@
     <!-- Hero -->
     <section class="hero" id="hero-section">
       <div class="hero-badge">🤖 Transcript & Interview Coach</div>
+      <div class="hero-badge badge-prep">📋 Pre-Interview Prep</div>
       <h1 class="hero-title">
         Prepare to Interview Anyone<br /><span class="gradient-text">With AI Intelligence</span>
       </h1>
@@ -89,6 +90,18 @@
         <button class="tab-btn" data-tab="interview" id="tab-interview">
           🎯 Questions to Ask
         </button>
+        <button class="tab-btn" data-tab="post-interview" id="tab-post-interview">
+          📝 Post-Interview
+        </button>
+      </div>
+
+      <!-- Go Live Bar -->
+      <div class="go-live-bar" id="go-live-bar" style="display:none">
+        <div class="go-live-info">
+          <span class="go-live-dot"></span>
+          <span>Ready for live interview coaching</span>
+        </div>
+        <button class="btn-go-live" id="btn-go-live">🔴 Go Live</button>
       </div>
 
       <!-- Tab Content: Intelligence -->
@@ -99,6 +112,30 @@
       <!-- Tab Content: Interview -->
       <div class="tab-content" id="content-interview">
         <!-- Filled by JS -->
+      </div>
+
+      <!-- Tab Content: Post-Interview -->
+      <div class="tab-content" id="content-post-interview">
+        <div class="post-interview-section">
+          <div class="post-interview-header">
+            <h3>📝 Post-Interview Transcript Processing</h3>
+            <p>Paste your interview transcript below to extract key insights, notable quotes, and follow-up items. The
+              processed data will be saved to your knowledge base.</p>
+          </div>
+          <div class="post-interview-form">
+            <textarea id="post-transcript-input" class="post-transcript-textarea" rows="8"
+              placeholder="Paste your full interview transcript here..."></textarea>
+            <div class="post-interview-actions">
+              <button class="btn-process-transcript" id="btn-process-transcript" disabled>
+                <span id="process-btn-text">📊 Process & Save to KB</span>
+                <div class="spinner" id="process-spinner" style="display:none"></div>
+              </button>
+            </div>
+          </div>
+          <div class="post-interview-results" id="post-interview-results" style="display:none">
+            <!-- Filled by JS -->
+          </div>
+        </div>
       </div>
 
       <!-- Pipeline Trace -->

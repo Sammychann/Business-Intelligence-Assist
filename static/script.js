@@ -25,7 +25,18 @@
   const tabBtns = document.querySelectorAll('.tab-btn');
   const contentIntelligence = document.getElementById('content-intelligence');
   const contentInterview = document.getElementById('content-interview');
+  const contentPostInterview = document.getElementById('content-post-interview');
   const pipelineTrace = document.getElementById('pipeline-trace');
+  const goLiveBar = document.getElementById('go-live-bar');
+  const btnGoLive = document.getElementById('btn-go-live');
+  const postTranscriptInput = document.getElementById('post-transcript-input');
+  const btnProcessTranscript = document.getElementById('btn-process-transcript');
+  const processBtnText = document.getElementById('process-btn-text');
+  const processSpinner = document.getElementById('process-spinner');
+  const postInterviewResults = document.getElementById('post-interview-results');
+
+  // Store last analysis data for Go Live context
+  let lastAnalysisData = null;
 
   // ── Loading Step Messages ───────────────────────────
   const LOADING_MESSAGES = [
@@ -40,17 +51,19 @@
   ];
 
   // ── Tab Navigation ──────────────────────────────────
+  const allTabContents = [contentIntelligence, contentInterview, contentPostInterview];
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const tab = btn.dataset.tab;
       tabBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      allTabContents.forEach(c => c.classList.remove('active'));
       if (tab === 'intelligence') {
         contentIntelligence.classList.add('active');
-        contentInterview.classList.remove('active');
-      } else {
+      } else if (tab === 'interview') {
         contentInterview.classList.add('active');
-        contentIntelligence.classList.remove('active');
+      } else if (tab === 'post-interview') {
+        contentPostInterview.classList.add('active');
       }
     });
   });
@@ -252,6 +265,12 @@
     // ── PIPELINE TRACE ───────────────────────────
     renderPipelineTrace(data._pipeline);
 
+    // Store for Go Live context
+    lastAnalysisData = data;
+
+    // Show Go Live bar
+    goLiveBar.style.display = 'flex';
+
     // Show dashboard
     reportDashboard.classList.add('active');
     setTimeout(() => {
@@ -434,6 +453,132 @@
         <div class="snapshot-value">${esc(value || 'N/A')}</div>
       </div>
     `;
+  }
+
+  // ── Go Live Handler ─────────────────────────────────
+  btnGoLive.addEventListener('click', () => {
+    if (!lastAnalysisData) {
+      showError('Please run an analysis first before going live.');
+      return;
+    }
+    // Store context for the live page
+    sessionStorage.setItem('live_company', lastAnalysisData.company_name || '');
+    sessionStorage.setItem('live_role', lastAnalysisData.role_analyzed || '');
+    sessionStorage.setItem('live_company_report', JSON.stringify(lastAnalysisData));
+
+    // Open live coaching in a new window
+    const params = new URLSearchParams({
+      company: lastAnalysisData.company_name || '',
+      role: lastAnalysisData.role_analyzed || ''
+    });
+    window.open(`/live?${params.toString()}`, '_blank',
+      'width=500,height=800,menubar=no,toolbar=no,location=no,status=no');
+  });
+
+  // ── Post-Interview Transcript Processing ────────────
+  postTranscriptInput.addEventListener('input', () => {
+    btnProcessTranscript.disabled = !postTranscriptInput.value.trim();
+  });
+
+  btnProcessTranscript.addEventListener('click', async () => {
+    const transcript = postTranscriptInput.value.trim();
+    if (!transcript) return;
+
+    const companyName = companyInput.value.trim() || (lastAnalysisData && lastAnalysisData.company_name) || '';
+    const role = roleInput.value.trim() || (lastAnalysisData && lastAnalysisData.role_analyzed) || '';
+
+    if (!companyName || !role) {
+      showError('Please enter a company name and role first (or run an analysis).');
+      return;
+    }
+
+    // Show loading state
+    btnProcessTranscript.disabled = true;
+    processBtnText.textContent = 'Processing...';
+    processSpinner.style.display = 'inline-block';
+
+    try {
+      const resp = await fetch('/api/process-transcript', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          transcript,
+          company_name: companyName,
+          role: role,
+          save_to_kb: true
+        })
+      });
+
+      const result = await resp.json();
+      if (!resp.ok) throw new Error(result.error || 'Processing failed');
+
+      renderPostInterviewResults(result);
+    } catch (err) {
+      showError(err.message || 'Transcript processing failed.');
+    } finally {
+      btnProcessTranscript.disabled = false;
+      processBtnText.textContent = '📊 Process & Save to KB';
+      processSpinner.style.display = 'none';
+    }
+  });
+
+  function renderPostInterviewResults(data) {
+    postInterviewResults.style.display = '';
+    postInterviewResults.innerHTML = `
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-icon emerald">✅</div>
+          <h3 class="section-title">Transcript Processed & Saved</h3>
+        </div>
+        <div class="section-body">
+          <p style="margin-bottom:12px;color:var(--gray-600)">${esc(data.summary || '')}</p>
+
+          ${data.key_insights && data.key_insights.length ? `
+            <h4 style="margin:12px 0 6px;font-size:14px">Key Insights (${data.key_insights.length})</h4>
+            <div class="insights-list">
+              ${data.key_insights.map((item, i) => `
+                <div class="insight-item">
+                  <span class="insight-number">${i + 1}</span>
+                  <div>
+                    <div style="font-weight:600;margin-bottom:2px">${esc(item.insight || '')}</div>
+                    ${item.source_quote ? `<div style="font-size:12px;color:var(--gray-500);font-style:italic">"${esc(item.source_quote)}"</div>` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+
+          ${data.notable_quotes && data.notable_quotes.length ? `
+            <h4 style="margin:12px 0 6px;font-size:14px">Notable Quotes</h4>
+            <div class="ai-list">
+              ${data.notable_quotes.map(q => `
+                <div class="ai-item">
+                  <span class="ai-item-icon">💬</span>
+                  <div>
+                    <div style="font-style:italic">"${esc(q.quote || '')}"</div>
+                    ${q.context ? `<div style="font-size:12px;color:var(--gray-500);margin-top:2px">${esc(q.context)}</div>` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+
+          ${data.follow_up_items && data.follow_up_items.length ? `
+            <h4 style="margin:12px 0 6px;font-size:14px">Follow-Up Items</h4>
+            <div class="ai-list">
+              ${data.follow_up_items.map(item => `
+                <div class="ai-item">
+                  <span class="ai-item-icon">📌</span>
+                  <span>${esc(item)}</span>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+
+    postInterviewResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // ── Utility ─────────────────────────────────────────

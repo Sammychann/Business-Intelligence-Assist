@@ -18,7 +18,10 @@ You are given:
 2. Web search results with recent news and context
 3. The role of the person the student will interview
 
-Your analysis must:
+CRITICAL RULES:
+- For factual company details (name, industry, size, founded, headquarters, what they do), you MUST use ONLY the data provided in the business directory entry or web search results. DO NOT make up or guess any factual details.
+- If a factual field is not available in the provided data, return "Not available" for that field.
+- NEVER fabricate founding years, employee counts, headquarters locations, or product descriptions.
 - AVOID stating things anyone can find with a quick Google search (e.g., "Google is a search engine")
 - FOCUS on hidden patterns, strategic implications, and cross-referenced insights
 - Surface non-obvious connections between company developments, market dynamics, and the specific role
@@ -30,11 +33,11 @@ Return ONLY this JSON structure:
 {
   "company_name": "",
   "company_snapshot": {
-    "what_they_do": "One-line description focusing on what matters, not obvious facts",
-    "industry": "",
-    "size": "e.g. 180K employees",
-    "founded": "",
-    "headquarters": ""
+    "what_they_do": "One-line description focusing on what matters, not obvious facts — use ONLY provided data",
+    "industry": "From provided data only",
+    "size": "e.g. 180K employees — from provided data only, or 'Not available'",
+    "founded": "From provided data only, or 'Not available'",
+    "headquarters": "From provided data only, or 'Not available'"
   },
   "hidden_insights": [
     {
@@ -82,9 +85,9 @@ def analyze_company(company_data: dict) -> dict:
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_message}
                 ],
-                temperature=0.3,
+                temperature=0,
                 max_tokens=5000,
-                top_p=0.9,
+                top_p=1,
                 response_format={"type": "json_object"}
             )
 
