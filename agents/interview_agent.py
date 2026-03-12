@@ -144,7 +144,7 @@ class InterviewAgent(BaseAgent):
         client = Groq(api_key=api_key)
         user_message = json.dumps(prompt_data, indent=2, default=str)
 
-        models = ["llama-3.3-70b-versatile", "llama3-70b-8192", "mixtral-8x7b-32768"]
+        models = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
         last_error = None
 
         for model in models:

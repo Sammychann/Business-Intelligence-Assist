@@ -2092,5 +2092,96 @@
         }
       ]
     }
+  ],
+  "calfus|software engineer": [
+    {
+      "timestamp": "2026-03-12T17:02:03.794774",
+      "questions": [
+        {
+          "question": "Can you walk me through a typical day in your role as a Software Engineer at Calfus?",
+          "expected_answer": "As a Software Engineer at Calfus, I work on a variety of projects, from designing and developing new features to troubleshooting and debugging existing ones. I collaborate with cross-functional teams to ensure that our software meets the highest standards of quality and reliability. My day typically starts with a team meeting to discuss ongoing projects and any new requirements or challenges.",
+          "category": "role_specific",
+          "difficulty": "easy",
+          "why_ask_this": "This question helps the student understand the day-to-day responsibilities of a Software Engineer at Calfus and how they contribute to the company's goals."
+        },
+        {
+          "question": "How does Calfus differentiate itself from its competitors in the software engineering and AI services market?",
+          "expected_answer": "We differentiate ourselves through our commitment to innovation and staying at the forefront of technological advancements. Our use of AI-augmented software engineering tools and our focus on collaboration and partnership set us apart from our competitors. We also have a strong focus on digital transformation, which allows us to help our clients improve their IT infrastructure and drive business transformation.",
+          "category": "strategic",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand Calfus' competitive advantage and how the company plans to maintain its market share."
+        },
+        {
+          "question": "Can you share an example of a successful project you've worked on at Calfus and how you overcame any challenges that arose?",
+          "expected_answer": "One successful project I worked on was a large-scale software development project for a major financial institution. We used AI-augmented software engineering tools to develop a custom solution that met the client's specific needs. However, we encountered some technical issues during the project, which we were able to overcome through collaboration and creative problem-solving.",
+          "category": "role_specific",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand the student's problem-solving skills and how they apply them in a real-world setting."
+        },
+        {
+          "question": "How does Calfus approach innovation and staying ahead of the curve in terms of technological advancements?",
+          "expected_answer": "We approach innovation through a combination of research and development, strategic partnerships, and a culture of experimentation and learning. We also prioritize staying up-to-date with the latest technologies and trends through ongoing training and professional development. This allows us to stay ahead of the curve and deliver cutting-edge solutions to our clients.",
+          "category": "strategic",
+          "difficulty": "hard",
+          "why_ask_this": "This question helps the student understand Calfus' approach to innovation and how the company plans to continue staying ahead of the curve."
+        },
+        {
+          "question": "Can you describe the company culture at Calfus and how it supports employee growth and development?",
+          "expected_answer": "Our company culture is built on a foundation of collaboration, innovation, and a commitment to excellence. We prioritize employee growth and development through ongoing training and professional development opportunities, as well as a culture of experimentation and learning. We also prioritize work-life balance and employee well-being, which allows our employees to thrive both personally and professionally.",
+          "category": "culture_insight",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand the company culture at Calfus and how it supports employee growth and development."
+        },
+        {
+          "question": "How does Calfus approach digital transformation and how does it help clients improve their IT infrastructure?",
+          "expected_answer": "We approach digital transformation through a combination of strategic planning, technology implementation, and ongoing support and maintenance. We work closely with our clients to understand their specific needs and develop customized solutions that meet those needs. Our focus on digital transformation allows us to help our clients improve their IT infrastructure and drive business transformation.",
+          "category": "strategic",
+          "difficulty": "hard",
+          "why_ask_this": "This question helps the student understand Calfus' approach to digital transformation and how it helps clients improve their IT infrastructure."
+        },
+        {
+          "question": "Can you describe the team you work with and how you collaborate with them to achieve project goals?",
+          "expected_answer": "I work with a talented and diverse team of software engineers, project managers, and other professionals who share my passion for innovation and excellence. We collaborate through regular meetings, shared documentation, and open communication to ensure that we're working together effectively to achieve project goals.",
+          "category": "role_specific",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand the team dynamics at Calfus and how they collaborate to achieve project goals."
+        },
+        {
+          "question": "How does Calfus prioritize employee well-being and work-life balance?",
+          "expected_answer": "We prioritize employee well-being and work-life balance through a variety of initiatives, including flexible work arrangements, employee wellness programs, and a culture of open communication and transparency. We also prioritize employee feedback and suggestions, which helps us identify areas for improvement and make data-driven decisions.",
+          "category": "culture_insight",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand Calfus' approach to employee well-being and work-life balance."
+        },
+        {
+          "question": "Can you describe the company's approach to diversity, equity, and inclusion?",
+          "expected_answer": "We prioritize diversity, equity, and inclusion through a variety of initiatives, including hiring practices, employee resource groups, and ongoing training and professional development opportunities. We also prioritize creating a culture of belonging and inclusion, which allows our employees to thrive both personally and professionally.",
+          "category": "culture_insight",
+          "difficulty": "hard",
+          "why_ask_this": "This question helps the student understand Calfus' approach to diversity, equity, and inclusion."
+        },
+        {
+          "question": "How does Calfus approach ongoing training and professional development for its employees?",
+          "expected_answer": "We prioritize ongoing training and professional development through a variety of initiatives, including workshops, conferences, and online courses. We also prioritize employee feedback and suggestions, which helps us identify areas for improvement and make data-driven decisions.",
+          "category": "culture_insight",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand Calfus' approach to ongoing training and professional development."
+        },
+        {
+          "question": "Can you describe the company's approach to innovation and staying ahead of the curve in terms of technological advancements?",
+          "expected_answer": "We approach innovation through a combination of research and development, strategic partnerships, and a culture of experimentation and learning. We also prioritize staying up-to-date with the latest technologies and trends through ongoing training and professional development. This allows us to stay ahead of the curve and deliver cutting-edge solutions to our clients.",
+          "category": "strategic",
+          "difficulty": "hard",
+          "why_ask_this": "This question helps the student understand Calfus' approach to innovation and how the company plans to continue staying ahead of the curve."
+        },
+        {
+          "question": "How does Calfus prioritize employee feedback and suggestions?",
+          "expected_answer": "We prioritize employee feedback and suggestions through a variety of initiatives, including regular check-ins, anonymous feedback mechanisms, and a culture of open communication and transparency. We also prioritize acting on employee feedback and suggestions, which helps us identify areas for improvement and make data-driven decisions.",
+          "category": "culture_insight",
+          "difficulty": "medium",
+          "why_ask_this": "This question helps the student understand Calfus' approach to employee feedback and suggestions."
+        }
+      ]
+    }
   ]
 }
