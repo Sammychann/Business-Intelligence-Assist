@@ -239,16 +239,13 @@
   function renderInsights(insights) {
     if (!insights.length) return;
     insightsCounter.textContent = insights.length;
-    insightsBody.innerHTML = insights.map((item, i) => {
+    const display = insights.slice(0, 3);
+    insightsBody.innerHTML = display.map((item, i) => {
       const text = typeof item === 'string' ? item : (item.insight || '');
-      const relevance = typeof item === 'object' ? (item.relevance || '') : '';
       return `
-        <div class="coach-item fade-in" style="animation-delay:${i * 0.08}s">
+        <div class="coach-item fade-in" style="animation-delay:${i * 0.06}s">
           <span class="item-number">${i + 1}</span>
-          <div>
-            <div class="item-text">${esc(text)}</div>
-            ${relevance ? `<div class="item-sub">${esc(relevance)}</div>` : ''}
-          </div>
+          <div class="item-text">${esc(text)}</div>
         </div>
       `;
     }).join('');
@@ -258,16 +255,13 @@
   function renderTalkingPoints(points) {
     if (!points.length) return;
     talkingCounter.textContent = points.length;
-    talkingBody.innerHTML = points.map((item, i) => {
+    const display = points.slice(0, 3);
+    talkingBody.innerHTML = display.map((item, i) => {
       const text = typeof item === 'string' ? item : (item.point || '');
-      const context = typeof item === 'object' ? (item.context || '') : '';
       return `
-        <div class="coach-item fade-in" style="animation-delay:${i * 0.08}s">
+        <div class="coach-item fade-in" style="animation-delay:${i * 0.06}s">
           <span class="item-bullet">✦</span>
-          <div>
-            <div class="item-text">${esc(text)}</div>
-            ${context ? `<div class="item-sub">${esc(context)}</div>` : ''}
-          </div>
+          <div class="item-text">${esc(text)}</div>
         </div>
       `;
     }).join('');
@@ -277,16 +271,15 @@
   function renderFlags(flags) {
     if (!flags.length) return;
     flagsCounter.textContent = flags.length;
-    flagsBody.innerHTML = flags.map((item, i) => {
+    const display = flags.slice(0, 3);
+    flagsBody.innerHTML = display.map((item, i) => {
       const text = typeof item === 'string' ? item : (item.item || '');
       const type = typeof item === 'object' ? (item.type || 'opportunity') : 'opportunity';
-      const action = typeof item === 'object' ? (item.suggested_action || '') : '';
       const isRed = type.toLowerCase().includes('red');
       return `
-        <div class="flag-item ${isRed ? 'flag-red' : 'flag-green'} fade-in" style="animation-delay:${i * 0.08}s">
-          <span class="flag-badge ${isRed ? 'badge-red' : 'badge-green'}">${isRed ? '⚠️ Red Flag' : '🚀 Opportunity'}</span>
+        <div class="flag-item ${isRed ? 'flag-red' : 'flag-green'} fade-in" style="animation-delay:${i * 0.06}s">
+          <span class="flag-badge ${isRed ? 'badge-red' : 'badge-green'}">${isRed ? '⚠️' : '🚀'}</span>
           <div class="flag-text">${esc(text)}</div>
-          ${action ? `<div class="flag-action">→ ${esc(action)}</div>` : ''}
         </div>
       `;
     }).join('');

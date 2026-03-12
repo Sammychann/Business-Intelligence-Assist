@@ -15,13 +15,15 @@ The student is NOT applying for a job — they are CONDUCTING an interview with 
 
 You are given:
 1. Company data from a business directory (may include financials, culture, challenges, products)
-2. Web search results with recent news and context
+2. Web search results with recent news and context — IMPORTANT: these include a "structured_data" object with pre-extracted fields like industry, headquarters, founded, employees, etc. USE THESE.
 3. The role of the person the student will interview
 
 CRITICAL RULES:
-- For factual company details (name, industry, size, founded, headquarters, what they do), you MUST use ONLY the data provided in the business directory entry or web search results. DO NOT make up or guess any factual details.
-- If a factual field is not available in the provided data, return "Not available" for that field.
-- NEVER fabricate founding years, employee counts, headquarters locations, or product descriptions.
+- For the company_snapshot fields, you MUST fill in EVERY field. Use data from the business_directory_entry first, then from web_search_results.structured_data, then infer from the web search snippets. Only say "Not available" as an absolute last resort when there is truly zero information.
+- For "industry": Identify the primary industry/sector from any available context. If the company makes software, say "Software / Technology". Always provide a reasonable answer.
+- For "size": Look at the "employees" field in structured_data, or any mention of workforce/team/headcount in search snippets. Format as "~X employees" or "X,000+ employees".
+- For "founded": Check structured_data.founded and search snippets for founding year.
+- For "headquarters": Check structured_data.headquarters and search snippets for location info.
 - AVOID stating things anyone can find with a quick Google search (e.g., "Google is a search engine")
 - FOCUS on hidden patterns, strategic implications, and cross-referenced insights
 - Surface non-obvious connections between company developments, market dynamics, and the specific role
@@ -33,11 +35,11 @@ Return ONLY this JSON structure:
 {
   "company_name": "",
   "company_snapshot": {
-    "what_they_do": "One-line description focusing on what matters, not obvious facts — use ONLY provided data",
-    "industry": "From provided data only",
-    "size": "e.g. 180K employees — from provided data only, or 'Not available'",
-    "founded": "From provided data only, or 'Not available'",
-    "headquarters": "From provided data only, or 'Not available'"
+    "what_they_do": "One-sentence description focusing on what matters — be specific, not generic",
+    "industry": "Primary industry/sector — ALWAYS fill this in from context",
+    "size": "e.g. ~180,000 employees — infer from any data available",
+    "founded": "Year founded — extract from any data available",
+    "headquarters": "City, State/Country — extract from any data available"
   },
   "hidden_insights": [
     {

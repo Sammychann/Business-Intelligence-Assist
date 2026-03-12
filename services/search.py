@@ -42,8 +42,15 @@ def search_company(company_name: str) -> dict:
                 if not structured_data["website"] and href and company_name.lower().replace(" ", "") in href.lower():
                     structured_data["website"] = href
 
+            # Search for company profile/facts (Wikipedia-style)
+            profile_results = list(ddgs.text(f"{company_name} founded headquarters industry employees", max_results=5))
+            for r in profile_results:
+                snippet = r.get("body", "")
+                if snippet:
+                    google_results.append(snippet)
+
             # Search for financial / employee info
-            fin_results = list(ddgs.text(f"{company_name} revenue employees funding", max_results=5))
+            fin_results = list(ddgs.text(f"{company_name} revenue employees funding size", max_results=5))
             for r in fin_results:
                 snippet = r.get("body", "")
                 if snippet:
@@ -72,12 +79,18 @@ def search_company(company_name: str) -> dict:
         # Try to extract structured fields from snippets
         all_text = " ".join(google_results)
         structured_data["description"] = _extract_description(all_text, company_name)
-        structured_data["industry"] = _extract_field(all_text, ["industry", "sector", "market"])
-        structured_data["headquarters"] = _extract_field(all_text, ["headquartered", "headquarters", "based in", "located in"])
+        structured_data["industry"] = _extract_field(all_text, ["industry", "sector", "market", "operates in"])
+        structured_data["headquarters"] = (
+            _extract_headquarters(all_text, company_name)
+            or _extract_field(all_text, ["headquartered", "headquarters", "based in", "located in"])
+        )
         structured_data["founded"] = _extract_founded(all_text)
-        structured_data["ceo"] = _extract_field(all_text, ["CEO", "chief executive"])
-        structured_data["revenue"] = _extract_field(all_text, ["revenue", "sales", "annual revenue"])
-        structured_data["employees"] = _extract_field(all_text, ["employees", "workforce", "team of"])
+        structured_data["ceo"] = _extract_field(all_text, ["CEO", "chief executive", "led by"])
+        structured_data["revenue"] = _extract_field(all_text, ["revenue", "sales", "annual revenue", "turnover"])
+        structured_data["employees"] = (
+            _extract_employees(all_text)
+            or _extract_field(all_text, ["employees", "workforce", "team of", "staff of"])
+        )
 
     except Exception as e:
         google_results.append(f"Search encountered an error: {str(e)}")
@@ -110,10 +123,18 @@ def _extract_description(text: str, company_name: str) -> str:
 def _extract_field(text: str, keywords: list) -> str:
     """Try to extract a field value near a keyword."""
     for keyword in keywords:
-        pattern = rf'{keyword}[:\s]+([^.;,\n]{{3,80}})'
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
-            return match.group(1).strip()
+        # Pattern: keyword followed by colon, space, or "is"/"are" then the value
+        for pattern in [
+            rf'{keyword}[:\s]+([^.;,\n]{{3,100}})',
+            rf'{keyword}\s+(?:is|are|was)\s+([^.;,\n]{{3,100}})',
+        ]:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                val = match.group(1).strip()
+                # Clean up trailing junk
+                val = re.sub(r'\s+$', '', val)
+                if len(val) > 2:
+                    return val
     return ""
 
 
@@ -122,12 +143,54 @@ def _extract_founded(text: str) -> str:
     patterns = [
         r'founded\s+(?:in\s+)?(\d{4})',
         r'established\s+(?:in\s+)?(\d{4})',
-        r'since\s+(\d{4})'
+        r'since\s+(\d{4})',
+        r'incorporated\s+(?:in\s+)?(\d{4})',
+        r'started\s+(?:in\s+)?(\d{4})',
+        r'\b((?:19|20)\d{2})\b[^.]*found',
     ]
     for p in patterns:
         match = re.search(p, text, re.IGNORECASE)
         if match:
             return match.group(1)
+    return ""
+
+
+def _extract_employees(text: str) -> str:
+    """Extract employee count with flexible patterns."""
+    patterns = [
+        r'(\d[\d,]+)\s*(?:\+\s*)?employees',
+        r'employees[:\s]+(\d[\d,]+)',
+        r'workforce\s+(?:of\s+)?(\d[\d,]+)',
+        r'team\s+(?:of\s+)?(\d[\d,]+)',
+        r'(\d[\d,]*\s*(?:K|k))\s*(?:\+\s*)?employees',
+        r'has\s+(\d[\d,]+)\s+(?:employees|people|staff)',
+        r'employs\s+(\d[\d,]+)',
+        r'about\s+(\d[\d,]+)\s+(?:employees|people)',
+    ]
+    for p in patterns:
+        match = re.search(p, text, re.IGNORECASE)
+        if match:
+            return match.group(1).strip()
+    return ""
+
+
+def _extract_headquarters(text: str, company_name: str) -> str:
+    """Extract headquarters location with flexible patterns."""
+    patterns = [
+        rf'{company_name}[^.]*(?:headquartered|based)\s+in\s+([^.;,\n]{{3,60}})',
+        r'headquarters?\s+(?:in|:)\s*([^.;,\n]{3,60})',
+        r'based\s+in\s+([^.;,\n]{3,60})',
+        r'located\s+in\s+([^.;,\n]{3,60})',
+        r'(?:head\s*office|HQ)\s+(?:in|:)\s*([^.;,\n]{3,60})',
+    ]
+    for p in patterns:
+        match = re.search(p, text, re.IGNORECASE)
+        if match:
+            val = match.group(1).strip()
+            # Clean up — take first city/state phrase
+            val = re.split(r'\s+(?:with|and|has|is|was|that)\s+', val)[0].strip()
+            if len(val) > 2:
+                return val
     return ""
 
 

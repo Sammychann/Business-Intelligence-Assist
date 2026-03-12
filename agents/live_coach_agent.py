@@ -45,7 +45,7 @@ Return ONLY this JSON structure:
 }
 
 Rules:
-- Return exactly 3 top_insights, 3 talking_points, and 1-3 red_flags_opportunities
+- Return exactly 3 top_insights, 3 talking_points, and 3 red_flags_opportunities
 - Be CONCISE — this is a real-time overlay, not a report
 - Focus on what's ACTIONABLE RIGHT NOW based on the latest transcript
 - Ground insights in the company data provided

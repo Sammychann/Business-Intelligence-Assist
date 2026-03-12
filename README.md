@@ -1,6 +1,6 @@
-# BI Assist — Transcript & Interview Coach
+# BI Assist — Transcript & Interview Coach (v3.0)
 
-AI-powered tool for students preparing to **interview professionals** at any company. Enter a company + role → get deep insights, smart questions to ask, and coaching tips.
+AI-powered tool for students preparing to **interview professionals** at any company. It provides deep pre-interview intelligence and **real-time live coaching** during the actual interview.
 
 ---
 
@@ -9,123 +9,65 @@ AI-powered tool for students preparing to **interview professionals** at any com
 | Layer | Technology |
 |-------|-----------|
 | **Frontend** | HTML5, Vanilla CSS, Vanilla JS (ES6+) |
-| **Backend** | Python 3.11+, Flask 3.x |
-| **LLM** | Groq Cloud (Llama 3.3 70B) |
+| **Real-time Comm** | Socket.IO (WebSockets), Web Speech API |
+| **Backend** | Python 3.11+, Flask 3.x, Flask-SocketIO |
+| **LLM** | Groq Cloud (Llama 3.3 70B & Mixtral) |
 | **Search** | DuckDuckGo Search API |
-| **Fonts** | Google Fonts (Inter) |
-| **Data** | JSON flat-file (business directory, interview history) |
+| **Data** | JSON flat-file (business directory, knowledge base, interview history) |
 
 ---
 
 ## Agentic AI Architecture
 
-```
-                          ┌──────────────┐
-                          │   Frontend   │
-                          │  HTML/CSS/JS │
-                          └──────┬───────┘
-                                 │ POST /api/analyze
-                                 ▼
-                          ┌──────────────┐
-                          │  Flask API   │
-                          │   app.py     │
-                          └──────┬───────┘
-                                 │
-                                 ▼
-                    ┌────────────────────────┐
-                    │     ORCHESTRATOR       │
-                    │  orchestrator.py       │
-                    │                        │
-                    │  Sequential Pipeline:  │
-                    │  Agent 1 → Agent 2     │
-                    └───┬──────────────┬─────┘
-                        │              │
-              ┌─────────▼──────┐  ┌────▼───────────┐
-              │ CompanyIntel   │  │ Interview      │
-              │ Agent          │  │ Agent          │
-              │                │  │                │
-              │ ┌────────────┐ │  │ ┌────────────┐ │
-              │ │ Business   │ │  │ │ Role       │ │
-              │ │ Directory  │ │  │ │ Search     │ │
-              │ │ (25 co.)   │ │  │ │ (DDG)     │ │
-              │ ├────────────┤ │  │ ├────────────┤ │
-              │ │ Web Search │ │  │ │ Interview  │ │
-              │ │ (DDG)      │ │  │ │ History KB │ │
-              │ ├────────────┤ │  │ ├────────────┤ │
-              │ │ Groq LLM   │ │  │ │ Groq LLM   │ │
-              │ │ (Analyze)  │ │  │ │ (Generate) │ │
-              │ └────────────┘ │  │ └────────────┘ │
-              └────────────────┘  └────────────────┘
+BI Assist uses a multi-agent system divided into two phases: **Pre-Interview Prep** and **Live Coaching**.
+
+```text
+                        PRE-INTERVIEW                      LIVE INTERVIEW
+                ┌────────────────────────────┐    ┌──────────────────────────────┐
+                │        Orchestrator        │    │    Live Session Manager      │
+                └──────┬──────────────┬──────┘    └──────────────┬───────────────┘
+                       │              │                          │
+             ┌─────────▼──────┐  ┌────▼───────────┐    ┌─────────▼──────────────┐
+             │ CompanyIntel   │  │ Interview      │    │ LiveCoach              │
+             │ Agent          │  │ Agent          │    │ Agent                  │
+             │                │  │                │    │                        │
+             │ ┌────────────┐ │  │ ┌────────────┐ │    │ ┌────────────────────┐ │
+             │ │ Bus. Dir + │ │  │ │ Role Search│ │    │ │ Streaming Audio    │ │
+             │ │ Web Search │ │  │ │ History KB │ │    │ │ (Web Speech API)   │ │
+             │ └────────────┘ │  │ └────────────┘ │    │ └────────────────────┘ │
+             │ ┌────────────┐ │  │ ┌────────────┐ │    │ ┌────────────────────┐ │
+             │ │ Groq LLM   │ │  │ │ Groq LLM   │ │    │ │ Ultra-Fast LLM     │ │
+             │ └────────────┘ │  │ └────────────┘ │    │ └────────────────────┘ │
+             └────────────────┘  └────────────────┘    └────────────────────────┘
 ```
 
 ### Agents
 
-| Agent | Purpose | Knowledge Bases |
-|-------|---------|----------------|
-| **CompanyIntelAgent** | Gathers company data, generates insight-focused analysis | Business Directory (local JSON), Web Search (DuckDuckGo), Groq LLM |
-| **InterviewAgent** | Generates smart questions the student should ASK | Company Report (from Agent 1), Role-specific Search, Interview History (local JSON), Groq LLM |
-| **Orchestrator** | Sequential pipeline coordinator | Dispatches agents, merges outputs, tracks timing |
-| **BaseAgent** | Abstract base class | Provides timing, logging, error handling |
-| **KnowledgeBase** | Persistence layer | Reads/writes interview history to avoid question repetition |
-
-### Data Flow
-
-```
-Input (company, role)
-  → Orchestrator
-    → CompanyIntelAgent
-      → Lookup business_directory.json (fuzzy match)
-      → DuckDuckGo search (company news)
-      → Groq LLM → { snapshot, hidden_insights, talking_points, red_flags }
-    → InterviewAgent
-      → Receives company report from Agent 1
-      → DuckDuckGo search (role-specific context)
-      → Loads interview_history.json (avoid repeats)
-      → Groq LLM → { questions[], coaching_tips[] }
-  → Merged JSON response → Frontend renders dashboard
-```
+| Agent | Phase | Purpose | Knowledge Context |
+|-------|-------|---------|-------------------|
+| **CompanyIntelAgent** | Pre | Gathers deep, non-obvious company data | Business Directory, Web Search |
+| **InterviewAgent** | Pre | Generates smart questions the student should ask | Company Intel output, Role Search, History KB |
+| **LiveCoachAgent** | Live | Analyzes real-time transcript chunks to provide talking points | Transcript history, Company Intel output |
+| **KnowledgeBaseAgent** | Post | Synthesizes full session transcript into persistent memory | Complete transcript, Company Intel |
 
 ---
 
 ## Frontend Features & Components
 
-### Pages & Sections
+### 1. Pre-Interview Dashboard (`index.html`)
+- **Company Insights Tabs**: Snapshot grid, hidden insights, talking points, red flags.
+- **Questions to Ask**: Expandable cards with categorization (Strategic, Culture, Role-Specific), predicted answers, and "why ask this" reasoning.
+- **Pipeline Trace**: Transparency into agent execution times.
 
-| Component | Description |
-|-----------|-------------|
-| **Hero Section** | Headline, subtitle, company + role input form, CTA button |
-| **Loading Overlay** | Animated orb + step-by-step agent progress messages |
-| **Tab Bar** | Two tabs: "Company Insights" and "Questions to Ask" |
-| **Company Insights Tab** | Snapshot grid, hidden insights, talking points, red flags/opportunities |
-| **Questions to Ask Tab** | Expandable question cards with category filters and coaching tips |
-| **Pipeline Trace** | Agent timing breakdown (name, status, elapsed seconds) |
-
-### Company Insights Components
-
-| Component | What It Shows |
-|-----------|--------------|
-| **Company at a Glance** | 5-field grid: What They Do, Industry, Size, Founded, HQ |
-| **Hidden Insights** | 5-7 numbered AI-synthesized insights with significance explanations |
-| **Talking Points** | 4-6 bullet points to sound impressively prepared |
-| **Red Flags & Opportunities** | Color-coded cards (rose/green) with probe questions to ask |
-
-### Questions to Ask Components
-
-| Component | What It Shows |
-|-----------|--------------|
-| **Category Filters** | Pill buttons: All, Role-Specific, Strategic, Culture & Team |
-| **Question Cards** | Expandable cards with number, text, category badge, difficulty badge |
-| **Expected Answer** | "What They'll Likely Say" — predicted interviewee response |
-| **Why Ask This** | Strategic reasoning — what intel the student gains |
-| **Coaching Tips** | 5-7 tips on conducting the interview (active listening, follow-ups) |
-
-### Interactivity
-
-- **Expand/collapse** — Click any question card header to reveal answer + reasoning
-- **Category filtering** — Filter questions by Role-Specific / Strategic / Culture & Team
-- **Tab switching** — Toggle between Company Insights and Questions to Ask
-- **Error handling** — Inline error banner with retry guidance
-- **Loading states** — Button spinner + overlay with animated pipeline steps
+### 2. Live Coaching Overlay (`live.html`)
+A standalone, ultra-compact popup window designed to sit side-by-side with Zoom/Teams.
+- **At-a-Glance UI**: No scrolling required. Information fits perfectly in a 500x800 window.
+- **Live Transcription**: Uses browser Web Speech API to capture conversation.
+- **Real-Time Coaching Cards**: 
+  - 💡 **Top Insights**: Contextual to what's currently being discussed.
+  - 🗣️ **Talking Points**: Suggests specific questions or pivots to make right now.
+  - 🔎 **Red Flags & Opportunities**: Actionable alerts based on interviewee statements.
+- **Post-Session Knowledge Base**: After ending the session, the full transcript is processed by an agent and saved into the persistent Knowledge Base JSON to inform future interviews.
 
 ---
 
@@ -134,14 +76,14 @@ Input (company, role)
 | ID | Requirement | Status |
 |----|------------|--------|
 | FR-1 | Accept company name + role as input | ✅ |
-| FR-2 | Lookup company in local business directory (25 companies) | ✅ |
-| FR-3 | Supplement with real-time web search via DuckDuckGo | ✅ |
-| FR-4 | Generate insight-focused company intelligence (not generic public info) | ✅ |
-| FR-5 | Generate 10-12 smart questions the student should ASK | ✅ |
-| FR-6 | Categorize questions as role_specific / strategic / culture_insight | ✅ |
-| FR-7 | Include expected answers and "why ask this" reasoning | ✅ |
-| FR-8 | Persist interview history to avoid question repetition | ✅ |
-| FR-9 | Provide coaching tips for conducting the interview | ✅ |
+| FR-2 | Generate deep company intelligence via Web Search + Local DB | ✅ |
+| FR-3 | Generate role-specific smart questions and coaching tips | ✅ |
+| FR-4 | Open a dedicated "Live Coaching" popup window | ✅ |
+| FR-5 | Transcribe interview audio in real-time | ✅ |
+| FR-6 | Stream transcript chunks to backend via WebSockets | ✅ |
+| FR-7 | Generate real-time coaching cards (insights, talking points, flags) | ✅ |
+| FR-8 | Provide an ultra-compact, no-scroll interface for live overlay | ✅ |
+| FR-9 | Process completed session transcripts into a persistent Knowledge Base | ✅ |
 | FR-10 | Display pipeline trace with agent timing | ✅ |
 
 ---
@@ -165,26 +107,30 @@ Input (company, role)
 
 ## Project Structure
 
-```
+```text
 Business-Intelligence-Assist/
-├── app.py                          # Flask server + API routes
+├── app.py                          # Flask server + API & Socket.IO routes
 ├── agents/
-│   ├── __init__.py
 │   ├── base_agent.py               # Abstract base with timing/logging
-│   ├── orchestrator.py             # Sequential pipeline coordinator
+│   ├── orchestrator.py             # Pre-interview pipeline coordinator
 │   ├── company_intel_agent.py      # Company analysis agent
 │   ├── interview_agent.py          # Question generation agent
-│   └── knowledge_base.py           # Interview history persistence
+│   ├── live_coach_agent.py         # Real-time transcript analyzer
+│   ├── knowledge_base_agent.py     # Post-session transcript synthesizer
+│   └── knowledge_base.py           # DB Persistence layer
 ├── services/
 │   ├── search.py                   # DuckDuckGo search wrapper
 │   └── analyzer.py                 # Groq LLM company analyzer
 ├── data/
-│   ├── business_directory.json     # 25-company curated directory
-│   └── interview_history.json      # Persisted Q&A history
+│   ├── business_directory.json     # Curated company directory
+│   └── interview_history.json      # Persisted Q&A history + live sessions
 ├── static/
-│   ├── index.html                  # Single-page frontend
-│   ├── style.css                   # White/black/orange design system
-│   └── script.js                   # Client-side rendering + interactivity
+│   ├── index.html                  # Pre-interview dashboard
+│   ├── style.css                   # Main design system
+│   ├── script.js                   # Client-side prep logic
+│   ├── live.html                   # Live coaching overlay
+│   ├── live.css                    # Compact overlay design
+│   └── live.js                     # WebSocket + Web Speech API logic
 ├── requirements.txt
 ├── .env                            # GROQ_API_KEY
 └── README.md
@@ -203,36 +149,32 @@ echo GROQ_API_KEY=your_key_here > .env
 
 # Run
 python app.py
-# → http://localhost:8000
+# → Dashboard: http://localhost:8000
+# → Live Overlay: http://localhost:8000/live?company=X&role=Y
 ```
 
 ---
 
-## API
+## Interfacing
 
-### `POST /api/analyze`
+### HTTP API
 
-```json
-// Request
-{ "company_name": "Google", "role": "Product Manager" }
+**`POST /api/analyze` (Prep Session)**
+Generates pre-interview intelligence.
 
-// Response
-{
-  "company_name": "Google",
-  "company_snapshot": { "what_they_do": "...", "industry": "...", "size": "...", "founded": "...", "headquarters": "..." },
-  "hidden_insights": [{ "insight": "...", "significance": "..." }],
-  "talking_points": ["..."],
-  "red_flags_opportunities": [{ "item": "...", "type": "red_flag|opportunity", "probe_question": "..." }],
-  "interview_questions": [{ "question": "...", "expected_answer": "...", "category": "...", "difficulty": "...", "why_ask_this": "..." }],
-  "coaching_tips": ["..."],
-  "role_analyzed": "Product Manager",
-  "analysis_confidence": "High",
-  "_pipeline": { "total_elapsed_seconds": 27.65, "agent_trace": [...] }
-}
-```
+**`POST /api/process_session` (Post Session)**
+Processes a completed live transcript into the Knowledge Base.
 
-### `GET /api/health`
+**`GET /api/health`**
+System health check.
 
-```json
-{ "status": "ok", "service": "Business Intelligence Assist", "version": "2.0.0" }
-```
+### WebSockets (Live Session)
+
+**`start_session` / `end_session`**
+Initialize or terminate real-time coaching state.
+
+**`transcript_chunk`**
+Client sends audio transcription text chunks. Backend buffers and triggers `LiveCoachAgent`.
+
+**`coaching_update`**
+Backend emits new insights, talking points, and red flags to the client overlay.
